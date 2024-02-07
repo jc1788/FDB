@@ -369,7 +369,12 @@ public partial class roadkill_batch : System.Web.UI.Page
                                 {
                                     check_highway_id = true;
                                 }
-                                else
+                                else if (value_highway_id.Equals("") && value_site_ch.Equals("木柵"))
+				{
+                                    check_highway_id = true;
+				    value_highway_id = "3甲";
+				}
+				else
                                 {
                                     check_highway_id = false;
                                     string error_note = "國道編號資料有誤";
@@ -517,10 +522,11 @@ public partial class roadkill_batch : System.Web.UI.Page
 				 || (value_site_ch.Equals("木柵") && ((value_highway_id.Equals("3") && ms <= 52m) || value_highway_id.Equals("3甲")))
 				 || (value_site_ch.Equals("關西") && ((value_highway_id.Equals("3") && ms >= 32m && ms <= 120.703m) || (value_highway_id.Equals("2") && ms > 8.2m) || (value_highway_id.Equals("1") && ms >= 83.5m && ms <= 110.8m)))
 				 || (value_site_ch.Equals("頭城") && value_highway_id.Equals("5"))
-				 || (value_site_ch.Equals("苗栗") && ((value_highway_id.Equals("1") && ms >= 90.8m && ms <= 183.5m) || value_highway_id.Equals("4")))
-				 || (value_site_ch.Equals("大甲") && value_highway_id.Equals("3") && ms >= 100.703m && ms <= 205.462m)
-				 || (value_site_ch.Equals("南投") && ((value_highway_id.Equals("3") && ms >= 185.462m && ms <= 280m) || value_highway_id.Equals("6")))
-				 || (value_site_ch.Equals("斗南") && value_highway_id.Equals("1") && ms >= 163.5m && ms <= 261.1m)
+				 || (value_site_ch.Equals("苗栗") && ((value_highway_id.Equals("1") && ms >= 90.8m && ms <= 176.427m) || (value_highway_id.Equals("4") && ms < 11.982m)))
+				 || (value_site_ch.Equals("台中") && ((value_highway_id.Equals("1") && ms >= 156.427m && ms <= 202m) || (value_highway_id.Equals("4") && ms >= 0.982m && ms <= 36.8m) || (value_highway_id.Equals("3") && ms >= 173.587m && ms <= 208.217m)))
+				 || (value_site_ch.Equals("大甲") && value_highway_id.Equals("3") && ms >= 100.703m && ms <= 193.587m)
+				 || (value_site_ch.Equals("南投") && ((value_highway_id.Equals("3") && ms >= 202.199m && ms <= 280m) || value_highway_id.Equals("6")))
+				 || (value_site_ch.Equals("斗南") && ((value_highway_id.Equals("1") && ms >= 182m && ms <= 261.1m) || (value_highway_id.Equals("3") && ms >= 188.217m && ms <= 222.199m)))
 				 || (value_site_ch.Equals("白河") && value_highway_id.Equals("3") && ms >= 260m && ms <= 393m)
 				 || (value_site_ch.Equals("新營") && ((value_highway_id.Equals("1") && ms >= 240.1m && ms <= 330m) || value_highway_id.Equals("8")))
 				 || (value_site_ch.Equals("岡山") && ((value_highway_id.Equals("1") && ms >= 310m) || (value_highway_id.Equals("10") && ms <= 28.4m)))

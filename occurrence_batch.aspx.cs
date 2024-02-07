@@ -125,8 +125,8 @@ public partial class occurrence_batch : System.Web.UI.Page
         int counts_ok = 0;
         int counts_error = 0;
         com.CommandText = "select * from [" + SheetName + "$]";  // SheetName = Sheet1 + $
-        try
-        {
+//        try
+//        {
             conn.Open();
 
 	    DataTable Sheets = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
@@ -257,7 +257,8 @@ public partial class occurrence_batch : System.Web.UI.Page
                             string value_group = dr[2].ToString();
                             string value_Density = dr[3].ToString();
                             string value_way_ch = dr[4].ToString();
-                            string value_date1 = dr[6].ToString();
+			// 2024/1/24 修正日期輸入格式問題
+                            string value_date1 = dr[6].ToString().Split(' ')[0];
                             string value_x = dr[7].ToString();
                             string value_y = dr[8].ToString();
                             string value_site_city = dr[10].ToString();
@@ -371,20 +372,20 @@ public partial class occurrence_batch : System.Web.UI.Page
 				cmd.Parameters.AddWithValue("error_note",error_note);
 				string sql_error = "Insert Into table_3(Chinese_name,short_name,Density,date1,x,y,site_ch,Collector_ch,uid,errornote) values(@value_Chinese_name,@value_short_name,@value_Density,@value_date1,@value_x,@value_y,@value_site_ch,@value_Collector_ch,@value_uid,@error_note)";
 
-				try
-				{
+				//try
+				//{
 				    conn_insert.Open();
 				    cmd.CommandText = sql_error;
 				    cmd.Connection = conn_insert;
 				    cmd.ExecuteNonQuery();
-				}
+				/*}
 				catch (Exception)
 				{
 				}
 				finally
-				{
+				{*/
 				    conn_insert.Close();
-				}
+				//}
 				counts_error += 1;
 			    }
 			    else
@@ -419,8 +420,8 @@ public partial class occurrence_batch : System.Web.UI.Page
                             sql_insert += "@value_full_name,";
 			    sql_insert += "@value_uid)";
 
-                            try
-                            {
+                            //try
+                            //{
                                 conn_insert.Open();
                                 cmd = new SqlCommand(sql_insert, conn_insert);
 				cmd.Parameters.AddWithValue("value_Chinese_name",value_Chinese_name);
@@ -454,16 +455,16 @@ public partial class occurrence_batch : System.Web.UI.Page
 				cmd.Parameters.AddWithValue("value_uid",value_uid);
                                 cmd.ExecuteNonQuery();
                                 counts_ok += 1;
-                            }
+                            /*}
                             catch (Exception e)
                             {
                                 counts_error += 1;
                                 error_siteid += value_siteid;
                             }
                             finally
-                            {
+                            {*/
                                 conn_insert.Close();
-                            }
+                            //}
 			    }
                         }
                     }
@@ -475,10 +476,10 @@ public partial class occurrence_batch : System.Web.UI.Page
                     break;
             }
             redirect_str = data_string;
-        }
-        catch {}
-        finally
-        {
+//        }
+//        catch {}
+//        finally
+//        {
             conn.Close();
             /*string old_file = "D:\\freeway2\\Attachments\\Batch_Upload\\" + upload_file;
             string new_file = "D:\\freeway2\\Attachments\\Batch_Upload\\" + System.DateTime.Now.ToString("s").Replace("-", "").Replace(":", "").Replace("T", "") + upload_file;
@@ -486,7 +487,7 @@ public partial class occurrence_batch : System.Web.UI.Page
             {
                 File.Move(old_file, new_file);
             }*/
-        }
+//        }
         if (!redirect_str.Equals(""))
         {
             Response.Write("<script>alert('"+redirect_str+"'); location.href='occurrence_batch_tmp.aspx?counts_error=" + counts_error + "&counts_ok=" + counts_ok +"'; </script>");

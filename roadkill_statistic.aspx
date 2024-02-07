@@ -5,6 +5,15 @@
       <script src="https://cdn.anychart.com/releases/v8/js/anychart-bundle.min.js"></script>
       <script scr="https://cdn.anychart.com/releases/v8/js/anychart-core.min.js"></script>
       <script src="https://cdn.anychart.com/releases/v8/js/anychart-treemap.min.js"></script>
+      <script>
+	function check_highway()
+	{
+	    if ($('#<%=highwayida.ClientID%>').val() == "0")
+		return confirm('您選擇要一次查詢所有國道，建議加上其他條件以免查詢時間過長。\n\r確定繼續查詢，或取消增加其他查詢條件');
+	    else
+		return true;
+	}
+      </script>
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="Server">
@@ -399,7 +408,7 @@
                                 </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
-          <asp:Button ID="btn_searcha" Cssclass="btn btn-secondary" runat="server" OnClick="btnsearch_Click" Text="搜尋" />
+          <asp:Button ID="btn_searcha" Cssclass="btn btn-secondary" runat="server" OnClick="btnsearch_Click" OnClientClick="return check_highway();" Text="搜尋" />
         </div>
                               </div>
                     </div>

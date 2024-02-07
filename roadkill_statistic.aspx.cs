@@ -364,10 +364,11 @@ public partial class roadkill_statistic : System.Web.UI.Page
 	    conn.Open();
 
 	    DataTable dt_highway = new DataTable();
-	    SqlDataAdapter apt2 = new SqlDataAdapter("SELECT * FROM [Highway]", conn);
+	    SqlDataAdapter apt2 = new SqlDataAdapter("SELECT '0' AS highway_id, 'ALL' AS highway_name UNION ALL SELECT highway_id, highway_name FROM [Highway]", conn);
 	    apt2.Fill(dt_highway);
 	    highwayida.DataSource = dt_highway;
 	    highwayida.DataBind();
+	    highwayida.SelectedIndex = 1;
 
 	    DataTable dt_part = new DataTable();
 	    SqlDataAdapter apt3 = new SqlDataAdapter("SELECT 0 AS id , 'ALL' AS  class1 UNION ALL Select Top 1 id , class1 FROM Engineering_road Where class1 = '北區養護工程分局' UNION ALL Select Top 1 id , class1 FROM Engineering_road Where class1 = '中區養護工程分局' UNION ALL Select Top 1 id , class1 FROM Engineering_road Where class1 = '南區養護工程分局' ORDER BY id", conn);
@@ -688,7 +689,7 @@ public partial class roadkill_statistic : System.Web.UI.Page
 		qstr += searchtxt;
 	    }
 
-	    if (highwayid != "")
+	    if (highwayid != "0")
 	    {
 		sql += " and highway_id = @highwayid";
 		sql1 += " and highway_id = @highwayid";
@@ -796,7 +797,7 @@ public partial class roadkill_statistic : System.Web.UI.Page
 
 	    sql1 += " group by highway_id,( mileage-100001) / 5000) as t inner join ";
 	    sql1 += "(select free_id, mileage, WGS84X, WGS84Y from freeway_new where ";
-	    if (highwayid != "")
+	    if (highwayid != "0")
 		sql1 += "free_id = @highwayid and ";
 	    if (start != 0)
 		sql1 += "mileage >= @start and ";
@@ -804,7 +805,7 @@ public partial class roadkill_statistic : System.Web.UI.Page
 		sql1 += "mileage <= @end and ";
 	    sql1 += "direction in ('S','E')) as a";
 	    sql1 += " on t.mstart = a.mileage and highway_id = a.free_id inner join (select free_id, mileage, WGS84X, WGS84Y from freeway_new where ";
-	    if (highwayid != "")
+	    if (highwayid != "0")
 		sql1 += "free_id = @highwayid and ";
 	    if (start != 0)
 		sql1 += "mileage >= @start and ";
