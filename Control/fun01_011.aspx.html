@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>
+
+</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 00px;
+	background-image: url();
+	background-repeat: repeat;
+	background-color: #F7F7F7;
+}
+-->
+
+.PagerCss TD A:hover { FONT-SIZE: 20px;WIDTH: 20px; COLOR: black; padding-left: 4px; padding-right:4px; }
+.PagerCss TD A:active { FONT-SIZE: 20px; WIDTH: 20px; COLOR: black; padding-left: 4px; padding-right:4px; }
+.PagerCss TD A:link { FONT-SIZE: 20px; WIDTH: 20px; COLOR: black; padding-left: 4px; padding-right:4px; }
+.PagerCss TD A:visited { FONT-SIZE: 20px; WIDTH: 20px; COLOR: black;padding-left: 4px; padding-right:4px; }
+.PagerCss TD SPAN { FONT-WEIGHT: bold; FONT-SIZE: 24px; WIDTH: 20px; COLOR: red; padding-left: 4px; padding-right:4px;} 
+</style>
+
+<link href="fun01_011.aspx_files/style1.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+<!--
+    function MM_preloadImages() { //v3.0
+        var d = document; if (d.images) {
+            if (!d.MM_p) d.MM_p = new Array();
+            var i, j = d.MM_p.length, a = MM_preloadImages.arguments; for (i = 0; i < a.length; i++)
+                if (a[i].indexOf("#") != 0) { d.MM_p[j] = new Image; d.MM_p[j++].src = a[i]; }
+        }
+    }
+    //-->
+</script>
+
+</head>
+<body>
+    
+    <form method="post" action="./fun01_011.aspx" id="form1">
+<div class="aspNetHidden">
+<input name="__EVENTTARGET" id="__EVENTTARGET" value="" type="hidden">
+<input name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" type="hidden">
+<input name="__VIEWSTATE" id="__VIEWSTATE" value="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" type="hidden">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['form1'];
+if (!theForm) {
+    theForm = document.form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+<script src="fun01_011.aspx_files/WebResource.js" type="text/javascript"></script>
+<div class="aspNetHidden">
+	<input name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="9BAF3E29" type="hidden">
+	<input name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0" type="hidden">
+	<input name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0" type="hidden">
+	<input name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="lcQEV2t5wS501Yd8S2x2OuZGS52vCY9bfY26XxFJxpBGh2qPKlrWou7spJZfwWWfO9dxlHZOoCRuQtp6fetKXgASTwgPozsfPnYE1V/QFipbCqB7/DUFSRjjGw+MSlz9lfe41nnv0FoED82Gt+AL9IOJloZ83rObKkmCTUxxHwbGKorxj84wmOnsrDkwpybIGV9DAFCrRE7OQKKr6FRIVoucbi7vLeXiB2LKsw81bzUjLWHxB7074IJMMVnxpFjCIInA5djXpRZ9qy9C8yNNK+hVW+oeo3IC6eb/oKpPDxP993Y/t0KmRlkNXaQkvDfmwgKQijHNOpGdyCdWRk6EZkTNuLWQTG6+ZW5P6dp8Iev+I2Wj50vlW/a+9DqR1ooc0OG13t7WuYcEYnC3n/sOYoMxymYf3dNRfia+9HyqBygSm5sWMwl6TU5ZBujyc26gNPMDK2M7qTMWSzpMKEnqwFKnt8rnQUlxLDAlZsAo9eiGLbEUm0KiQqiy1hkctr966pxoTJ7HDpsnBiM1QSGQkGQ6D4yBS/CB1vLWi/MqGSB99Y9mZDSYO2vJ14JD2eb1gsIJsqyQ3ORWv8Ltv85DQIFPuTQKBDt8T9cGqI2FgM6mTs7rLbYavi43TAusSdbmVG1UwPsC85FEA7Xk305H24xVxhJAkCBrnqSz+vi32dR1Iq9JN4GqyCq1iPV1IsqlMibK/8RuybFNtvus/blICZBRLekHiiPHsP1vCrpdFzEWteFR0HEo9o80cqyJpP42e4zZkZsXhjgDYkWEQo5hI477ys9zNLGd75fxSQ8XEVLP2HY5Vv2srH8BJaMDV7UN039V9ZSrSZGwLURfiMqszJVQ0DMJ4gk4RP8AXPSO9nB0fj+LoyokIxxNTG+vUr4XhnO12O8bSltHFu9762DVjKAAfsdJysA7Y68MtyjBQMnvXRh8gb/T8X+VX3mT9g8kThDWvGRJ/n0EPhBR14qLWLHFuaKDLCIZWRMOVXZ/DBHK76WeU6ngC0Iv/Jz++nW1Zn7Ckeor2aJWqRaIxBc0uc1zYDqyGm/lXZ6Cvsh/vH4gy07aLeaH0XcH0YLlbLuScZUPNLCQX7lJ1bZ2Y0NR/4UpeHscfNqLYCkwWMJkIQDnGBAhllchemimOCKU7zZO4Vekx3ckWMhltgxkZ2wb3vzXMLagtrzGbhYZHE/rJSP1iPV+TcW+v7OdYwO2wXqdhQoEOR/o5HQQYYZo1c7Tavc3DmqdIpREhnkXmihZucrVqx75QPoxju/qt9uX9vId" type="hidden">
+</div>
+    <table id="Table_Title" style="width:1000px;" align="Center">
+	<tbody><tr>
+		<td>
+                <a href="http://ecodata.freeway.gov.tw/default.cshtml">
+                    <img id="Image1" src="fun01_011.aspx_files/top1.png" style="border-style:None;">
+                </a>
+            </td>
+	</tr><tr>
+		<td style="background-color:#F7F7F7;"><table id="Table_Menu" style="width:900px;" align="Center">
+			<tbody><tr align="right">
+				<td>
+                             <div class="menu4">
+                                 <a href="http://ecodata.freeway.gov.tw/default.cshtml" class="menu4">首頁</a> &gt;  
+                                 <a href="http://ecodata.freeway.gov.tw/View/fun01_011.aspx" class="menu4">生態調查資料</a> &gt;  
+                                 <a href="http://ecodata.freeway.gov.tw/View/fun01_011.aspx" class="menu4">物種瀏覽</a> 
+                             </div>
+                         </td>
+			</tr>
+		</tbody></table></td>
+	</tr><tr>
+		<td style="background-color:#F7F7F7;"><table id="Table1" style="width:1000px;" align="Center">
+			<tbody><tr>
+				<td><img id="Image2" src="fun01_011.aspx_files/c01.jpg" style="height:47px;width:1000px;"></td>
+			</tr><tr>
+				<td><table id="Table2" style="width:900px;" align="Center">
+					<tbody><tr>
+						<td style="width:649px;" valign="top"><table id="Table_Function" style="width:640px;" align="Center">
+							<tbody><tr>
+								<td style="width:17px;"><img id="Image6" src="fun01_011.aspx_files/10.jpg" style="height:32px;width:15px;"></td><td class="title12" style="width:93px;">
+                                                    物種瀏覽
+                                                </td><td class="menu12a" style="width:482px;">
+                                                    <span class="menu13">
+                                                        <a href="http://ecodata.freeway.gov.tw/View/fun01_011.aspx" class="menu13">依物種查詢</a>
+                                                    </span> 
+                                                </td>
+							</tr><tr>
+								<td colspan="3" style="background-color:#666666;"></td>
+							</tr><tr>
+								<td style="width:17px;"><img id="Image5" src="fun01_011.aspx_files/10.jpg" style="height:32px;width:15px;"></td><td class="title12" style="width:93px;">
+                                                    空間瀏覽
+                                                </td><td class="menu12a" style="width:482px;">
+                                                    <span class="menu12">
+                                                        <a href="http://ecodata.freeway.gov.tw/View/fun01_021a.aspx" class="menu12">依國道公里數查詢</a>
+                                                    </span> | 
+                                                    <span class="menu12">
+                                                        <a href="http://ecodata.freeway.gov.tw/View/fun01_021b.aspx" class="menu12">依工程處查詢</a>
+                                                    </span> | 
+                                                    <span class="menu12">
+                                                        <a href="http://ecodata.freeway.gov.tw/View/fun01_021e.aspx" class="menu12">空間查詢</a>
+                                                    </span> 
+                                                </td>
+							</tr><tr>
+								<td colspan="3" style="background-color:#666666;"></td>
+							</tr>
+						</tbody></table>
+                                        <br>
+                                        <table id="Table_Query" style="width:590px;" align="Right">
+							<tbody><tr>
+								<td class="explain4">
+                                                    請輸入物種名稱 :
+                                                </td><td><input name="chinese_name" id="chinese_name" type="text"></td>
+							</tr><tr style="background-color:#E0E0E0;">
+								<td colspan="2"></td>
+							</tr><tr>
+								<td class="explain4">
+                                                    請選擇物種類群 :
+                                                </td><td><select name="Group" id="Group">
+									<option value="ALL" selected="selected">ALL</option>
+									<option value="鳥類">鳥類</option>
+									<option value="兩棲類">兩棲類</option>
+									<option value="爬蟲類">爬蟲類</option>
+									<option value="哺乳類">哺乳類</option>
+									<option value="昆蟲">昆蟲</option>
+									<option value="植物">植物</option>
+									<option value="其他類群">其他類群</option>
+
+								</select></td>
+							</tr><tr style="background-color:#E0E0E0;">
+								<td colspan="2"></td>
+							</tr><tr>
+								<td class="explain4">
+                                                    關注物種 :
+                                                </td><td><select name="species" id="species">
+									<option value="" selected="selected">ALL</option>
+									<option value="coa_code">保育種</option>
+									<option value="is_endemic">特有種</option>
+									<option value="is_alien">外來種</option>
+
+								</select></td>
+							</tr><tr style="background-color:#E0E0E0;">
+								<td colspan="2"></td>
+							</tr><tr>
+								<td class="explain4">
+                                                    資料期間 :
+                                                </td><td><input name="StartYear" id="StartYear" style="width:30px;" type="text"><span id="Label1" style="display:inline-block;width:70px;">  年(西元)  </span><select name="StartMonth" id="StartMonth">
+									<option value="" selected="selected"></option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+
+								</select><span id="Label2">  月至  </span><input name="EndYear" id="EndYear" style="width:30px;" type="text"><span id="Label3" style="display:inline-block;width:70px;">  年(西元)  </span><select name="EndMonth" id="EndMonth">
+									<option value="" selected="selected"></option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+
+								</select><span id="Label4">  月  </span></td>
+							</tr><tr style="background-color:#E0E0E0;">
+								<td colspan="2"></td>
+							</tr><tr>
+								<td class="explain4"></td><td><input name="Button_Query" value="查詢" id="Button_Query" type="submit"></td>
+							</tr><tr style="background-color:#E0E0E0;">
+								<td colspan="2"></td>
+							</tr>
+						</tbody></table></td><td style="width:245px;" align="center">
+                                         <div>
+                                             <img id="Image3" src="fun01_011.aspx_files/c04.png" style="height:204px;width:189px;">
+                                         </div>
+                                     </td>
+					</tr>
+				</tbody></table></td>
+			</tr><tr>
+				<td><img id="Image4" src="fun01_011.aspx_files/c03.jpg" style="height:25px;width:1000px;"></td>
+			</tr>
+		</tbody></table></td>
+	</tr><tr id="Row_GridView">
+		<td valign="top"><table id="Table3" style="width:1000px;">
+			<tbody><tr>
+				<td style="width:1000px;" valign="middle" align="center"><table id="Table4">
+					<tbody><tr>
+						<td style="width:1000px;" valign="middle" align="right"><span id="TotalCounts">總筆數：1784</span></td>
+					</tr><tr>
+						<td style="width:1000px;" valign="middle" align="center"></td>
+					</tr><tr>
+						<td style="width:1000px;" valign="middle" align="center"><div>
+							<table id="GridView_List" style="color:Black;background-color:LightGoldenrodYellow;border-color:#fff;border-width:1px;border-style:solid;font-size:Medium;width:100%;border-collapse:collapse;" cellspacing="0" cellpadding="2">
+								<tbody><tr class="menu6" style="color:#fff;background-color:#167f92;font-weight:bold;height:30px;">
+									
+                                    <th scope="col"><a href="javascript:__doPostBack('GridView_List','Sort$Chinese_Name')" style="color:#fff;">中文名</a></th><th scope="col"><a href="javascript:__doPostBack('GridView_List','Sort$Short_Name')" style="color:#fff;">學名</a></th><th scope="col"><a href="javascript:__doPostBack('GridView_List','Sort$Group')" style="color:#fff;">類群</a></th>
+								</tr>
+                                    <tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Microhyla%20fissipes&amp;StartDate=%20&amp;EndDate=" target="_blank">小雨蛙</a></td><td>Microhyla fissipes</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Microhyla%20ornata&amp;StartDate=%20&amp;EndDate=" target="_blank">小雨蛙</a></td><td>Microhyla ornata</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Hyla%20chinensis&amp;StartDate=%20&amp;EndDate=" target="_blank">中國樹蟾</a></td><td>Hyla chinensis</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Microhyla%20butleri&amp;StartDate=%20&amp;EndDate=" target="_blank">巴氏小雨蛙</a></td><td>Microhyla butleri</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Buergeria%20japonica&amp;StartDate=%20&amp;EndDate=" target="_blank">日本樹蛙</a></td><td>Buergeria japonica</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Limnonectes%20fujianensis&amp;StartDate=%20&amp;EndDate=" target="_blank">古氏赤蛙</a></td><td>Limnonectes fujianensis</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Micryletta%20steinegeri&amp;StartDate=%20&amp;EndDate=" target="_blank">史丹吉氏小雨蛙</a></td><td>Micryletta steinegeri</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Rhacophorus%20taipeianus&amp;StartDate=%20&amp;EndDate=" target="_blank">台北樹蛙</a></td><td>Rhacophorus taipeianus</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Polypedates%20megacephalus&amp;StartDate=%20&amp;EndDate=" target="_blank">白頜樹蛙</a></td><td>Polypedates megacephalus</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Polypedates%20braueri&amp;StartDate=%20&amp;EndDate=" target="_blank">白頷樹蛙</a></td><td>Polypedates braueri</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Kurixalus%20eiffingeri&amp;StartDate=%20&amp;EndDate=" target="_blank">艾氏樹蛙</a></td><td>Kurixalus eiffingeri</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Hylarana%20latouchii&amp;StartDate=%20&amp;EndDate=" target="_blank">拉都希氏赤蛙</a></td><td>Hylarana latouchii</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Rana%20latouchii&amp;StartDate=%20&amp;EndDate=" target="_blank">拉都希氏赤蛙</a></td><td>Rana latouchii</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Hoplobatrachus%20rugulosus&amp;StartDate=%20&amp;EndDate=" target="_blank">虎皮蛙</a></td><td>Hoplobatrachus rugulosus</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Hoplobatrachus%20chinensis&amp;StartDate=%20&amp;EndDate=" target="_blank">虎皮蛙</a></td><td>Hoplobatrachus chinensis</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Rana%20longicrus&amp;StartDate=%20&amp;EndDate=" target="_blank">長腳赤蛙</a></td><td>Rana longicrus</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Kurixalus%20idiootocus&amp;StartDate=%20&amp;EndDate=" target="_blank">面天樹蛙</a></td><td>Kurixalus idiootocus</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Chirixalus%20idiootocus&amp;StartDate=%20&amp;EndDate=" target="_blank">面天樹蛙</a></td><td>Chirixalus idiootocus</td><td>兩棲類</td>
+								</tr><tr style="height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Hylarana%20guentheri&amp;StartDate=%20&amp;EndDate=" target="_blank">貢德氏赤蛙</a></td><td>Hylarana guentheri</td><td>兩棲類</td>
+								</tr><tr style="background-color:White;height:30px;" valign="middle" align="center">
+									<td><a href="http://ecodata.freeway.gov.tw/View/fun01_012.aspx?Short_Name=Rana%20guentheri&amp;StartDate=%20&amp;EndDate=" target="_blank">貢德氏赤蛙</a></td><td>Rana guentheri</td><td>兩棲類</td>
+								</tr><tr class="PagerCss" valign="middle" align="center">
+									<td colspan="3"><table>
+										<tbody><tr>
+											<td><span>1</span></td><td><a href="javascript:__doPostBack('GridView_List','Page$2')" style="color:Black;">2</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$3')" style="color:Black;">3</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$4')" style="color:Black;">4</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$5')" style="color:Black;">5</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$6')" style="color:Black;">6</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$7')" style="color:Black;">7</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$8')" style="color:Black;">8</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$9')" style="color:Black;">9</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$10')" style="color:Black;">10</a></td><td><a href="javascript:__doPostBack('GridView_List','Page$11')" style="color:Black;">...</a></td>
+										</tr>
+									</tbody></table></td>
+								</tr>
+							</tbody></table>
+						</div></td>
+					</tr><tr>
+						<td style="width:1000px;" valign="middle" align="center"></td>
+					</tr>
+				</tbody></table></td>
+			</tr>
+		</tbody></table></td>
+	</tr><tr align="center">
+		<td colspan="2"><table id="Table5" style="height:70px;width:1000px;background-image:url(../Images/frame/02.jpg);" align="Center">
+			<tbody><tr align="center">
+				<td colspan="2" style="color:#167f92;font-size:10pt;" align="center">
+                            <br>
+                            <div>
+                                            總機：(02)2909-6141 (02)2909-6141 地址：24303新北市泰山區黎明里半山雅70號<br>
+                                    交通部高速公路局 <br>
+                                版權所有 最佳瀏覽環境：IE 6.0、FireFox 2.0 以上版本．本網站最佳瀏覽解析度為 1024*768
+                            </div>
+                        </td>
+			</tr>
+		</tbody></table></td>
+	</tr>
+</tbody></table>
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+
+
+</body></html>

@@ -1,0 +1,451 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var data = ViewBag.profile;
+    var imgs = ViewBag.imgs;
+    var nextdata = ViewBag.nextdata;
+    var predata = ViewBag.predata;
+}
+<style>
+    .youtube-container {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .youtube-player {
+        display: block;
+        width: 100%; /* assuming that the video has a 16:9 ratio */
+        padding-bottom: 56.25%;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        cursor: hand;
+        cursor: pointer;
+        display: block;
+    }
+
+    img.youtube-thumb {
+        bottom: 0;
+        display: block;
+        left: 0;
+        margin: -9.25% auto;
+        max-width: 100%;
+        width: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: auto
+    }
+
+    div.play-button {
+        height: 72px;
+        width: 72px;
+        left: 50%;
+        top: 50%;
+        margin-left: -36px;
+        margin-top: -36px;
+        position: absolute;
+        background: url("https://i.imgur.com/TxzC70f.png") no-repeat;
+    }
+
+    #youtube-iframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+
+<!------------  breadcrumb  -------------->
+<div class="view">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item active"><a href='@Url.Action("Allworks", "Home", new { filter = "" })'>公共藝術作品</a></li>
+            <li class="breadcrumb-item" aria-current="page">@data.portfolio_name</li>
+        </ol>
+    </div>
+</div>
+
+<!------------  photoWatchBox  -------------->
+<div class="photoWatchBox">
+    <div class="bg-line"></div>
+    <div class="view-border">
+        <div class="view">
+            <div class="photoWatchBox__ttl">@data.portfolio_name</div>
+            <div class="photoWatchBox__photo">
+                <div class="slider slider-for">
+                    <div>
+                        <a id="img2" data-fancybox="gallery" class="fancybox" href="~/Content/images/default-img.jpg">
+                            <img id="img1" class="photo-around-l" src="~/Content/images/default-img.jpg" alt="">
+                        </a>
+                    </div>
+                    @if (Enumerable.Count(imgs) > 0)
+                    {
+                        for (int i = 1; i < Enumerable.Count(imgs); i++)
+                        {
+                            <div>
+                                <a data-fancybox="gallery" class="fancybox" href="@Url.Content(imgs[i])">
+                                    <img data-src="@Url.Content(imgs[i])" class="photo-around-l"
+                                         src="@Url.Content(imgs[i])" alt="">
+                                </a>
+
+                            </div>
+                        }
+
+                    }
+
+                </div>
+                <div class="slider slider-nav">
+                    @if (Enumerable.Count(imgs) > 0)
+                    {
+                        foreach (var i in imgs)
+                        {
+                            <div>
+                                <img data-src="@Url.Content(i)" src="@Url.Content(i)" alt="" />
+                            </div>
+                        }
+
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------  shared button  -------------->
+<div class="sharedBtnBox">
+    <div class="bg-line"></div>
+    <div class="view-border">
+        <div class="view">
+            <div id="fb-root"></div>
+            <!-- Your share button code -->
+            <button class="btn btn-empty btn-hover-line">
+                <span class="txt">share to facebook</span><span class="hover-line horizon"></span>
+                <div class="fb-share-button"
+                     data-href="@Request.Url.AbsoluteUri"
+                     data-layout="button_count">
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!------------  artDetailBox  -------------->
+<div class="artDetailBox">
+    <div class="view-border">
+        <div class="view">
+            <div class="artDetailBox__item">
+                <div class="artDetailBox__item__ttl">作品介紹</div>
+                <div class="artDetailBox__item__cont">
+                    <div class="para">
+                        <span class="ttl ttl-underline">作者</span> <span>
+                            @data.creator
+                        </span>
+                    </div>
+                    <div class="para"><span class="ttl ttl-underline">年份</span> <span>@data.create_year</span></div>
+                    <div class="para"><span class="ttl ttl-underline">材質</span> <span>@data.portfolio_made_of</span></div>
+                    <div class="para">
+                        <span class="ttl ttl-underline">尺寸</span> <span>
+                            @data.portfolio_size
+                        </span>
+                    </div>
+                    <div class="para"><span class="ttl ttl-underline">地點</span> <span>@data.portfolio_place</span></div>
+                </div>
+                <div class="content__break"></div>
+            </div>
+            @if (data.portfolio_vedio != "" && data.portfolio_vedio != null)
+            {
+                <div class="artDetailBox__item">
+                    <div class="artDetailBox__item__ttl">影片介紹</div>
+                    <div class="artDetailBox__item__cont">
+                        <div class="video-container">
+                            <div class="section__video photo-around-l">
+                                <div class="youtube-player" data-id=@data.portfolio_vedio></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__break"></div>
+                </div>
+            }
+            @if (data.portfolio_mp3 != "" && data.portfolio_mp3 != null)
+            {
+                <div class="artDetailBox__item">
+                    <div class="artDetailBox__item__ttl">語音介紹</div>
+                    <div class="artDetailBox__item__cont">
+                        <div class="audio__player ml">
+                            <div class="audio green-audio-player">
+                                <div class="loading">
+                                    <div class="spinner"></div>
+                                </div>
+                                <div class="play-pause-btn playy">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="36" viewBox="0 0 18 24">
+                                        <path fill="#16b73e" fill-rule="evenodd" d="M18 12L0 24V0"
+                                              class="play-pause-icon" id="playPause" />
+                                    </svg>
+                                </div>
+                                <div class="controls">
+                                    <span class="timer current-time">0:00</span>
+                                    <div class="slider" data-direction="horizontal">
+                                        <div class="progress">
+                                            <div class="pin" id="progress-pin" data-method="rewind"></div>
+                                        </div>
+                                    </div>
+                                    <span class="timer total-time">0:00</span>
+                                </div>
+                                <div class="volume">
+                                    <div class="volume-btn">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 24 24">
+                                            <path fill="#16b73e" fill-rule="evenodd"
+                                                  d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z"
+                                                  id="speaker" />
+                                        </svg>
+                                    </div>
+                                    <div class="volume-controls hidden">
+                                        <div class="slider" data-direction="vertical">
+                                            <div class="progress">
+                                                <div class="pin" id="volume-pin" data-method="changeVolume"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <audio crossorigin="">
+                                    <source src="@Url.Content(data.portfolio_mp3)" type="audio/mpeg">
+                                </audio>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__break"></div>
+                </div>
+
+            }
+            @if (data.portfolio_des1 != "" && data.portfolio_des1 != null)
+            {
+                <div class="artDetailBox__item">
+                    <div class="artDetailBox__item__ttl">策畫理念</div>
+                    <div class="artDetailBox__item__cont">
+                        <div class="para">
+                            @data.portfolio_des1
+                        </div>
+                    </div>
+                    <div class="content__break"></div>
+                </div>
+            }
+            <div class="artDetailBox__item">
+                <div class="artDetailBox__item__ttl">作品說明</div>
+                <div class="artDetailBox__item__cont">
+                    <div class="para"> @data.portfolio_des2</div>
+                </div>
+                <div class="content__break"></div>
+            </div>
+            @if (data.latitude != null && data.longitude != null)
+            {
+                <div class="artDetailBox__item" style="height: 500px;">
+                    <div id="map"></div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<!------------  pagination  -------------->
+<div class="pageChangeBox">
+    <ul class="pageChange">
+        @if (predata != null)
+        {
+            <li class="page-item page-prev">
+                <a class="page-link" href='@Url.Action("Detail", "Home", new { id = predata.id })'>
+                    <span class="txt">@predata.portfolio_name</span>
+                    <span class="icon"><img src="~/Content/images/icon/icon_arow.png" alt=""></span>
+                </a>
+            </li>
+        }
+        @if (nextdata != null)
+        {
+            <li class="page-item page-next">
+                <a class="page-link" href='@Url.Action("Detail", "Home", new { id = nextdata.id })'>
+                    <span class="icon"><img src="~/Content/images/icon/icon_arow.png" alt=""></span>
+                    <span class="txt">@nextdata.portfolio_name</span>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<!------------  TOP  -------------->
+<div class="toTopBox" onclick="topFunction()">
+    <img src="~/Content/images/icon/icon_top.png" alt="to top">
+</div>
+
+<!------------  loading  -------------->
+<div class="loading">
+    <div class="loading__overlay"></div>
+    <div class="loading__wrapper">
+        <span class="circle circle-1"></span>
+        <span class="circle circle-2"></span>
+        <span class="circle circle-3"></span>
+        <span class="circle circle-4"></span>
+        <span class="circle circle-5"></span>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Content/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/lazyload.min.js"></script>
+<script type="text/javascript" src="~/Content/js/slick.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="~/Content/js/audio.js"></script>
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+
+<script type="text/javascript">
+
+    var elementPosition = $('.photoWatchBox .photoWatchBox__ttl').offset().top;
+   
+
+    (function ($) {
+
+        var res =@(Html.Raw(Json.Encode(@ViewBag.imgs)));
+        if (res[0] != null) {
+            var img = res[0].replace("~", "../../");
+            $("#img1").attr("src", img);
+            $("#img2").attr("href", img);          
+        }
+
+
+        //vedio
+        var v = document.getElementsByClassName("youtube-player");
+        for (var n = 0; n < v.length; n++) {
+            var p = document.createElement("div");
+            p.innerHTML = labnolThumb(v[n].dataset.id);
+            p.onclick = labnolIframe;
+            v[n].appendChild(p);
+        }
+
+        //fnacyBox
+        $(".fancybox").fancybox();
+
+        //slick
+        $slickGroup = false;
+        $(window).on('load', function () {
+
+            if (!$slickGroup) {
+                slickGroup();
+                $('.loading').fadeOut();
+            }
+
+        });
+
+        //map
+
+        var profiledata =@Html.Raw(Json.Encode(ViewBag.profile));
+
+        var map;
+        var latDB = profiledata.latitude;
+        var lngDB = profiledata.longitude;
+
+        console.log(lngDB);
+
+        if (latDB != null && lngDB != null) {
+            map = L.map('map').setView([latDB, lngDB], 17);
+
+            //custom marker
+            var greenIcon = L.icon({
+                iconUrl: '../../Content/images/icon/icon_marker.png',
+                iconSize: [27, 40], // size of the icon
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            L.marker([latDB, lngDB], { icon: greenIcon }).addTo(map);
+
+            //mouse wheel disabled
+            map.scrollWheelZoom.disable();
+        } else {
+
+        }
+
+    })($);
+
+
+    $(window).on('resize', function () {
+        slickGroup();
+    });
+    $(window).on('scroll', function () {
+        var thisScroll = $(window).scrollTop() + 45;
+        if ($(window).width() < 768) {
+            if (thisScroll > elementPosition) {
+                $('.photoWatchBox .photoWatchBox__ttl').addClass('sticky')
+            } else {
+                $('.photoWatchBox .photoWatchBox__ttl').removeClass('sticky')
+            }
+        }
+    });
+
+   
+    function slickGroup() {
+        var mq = window.matchMedia("(min-width: 767px)");
+        if (mq.matches) {
+            if (!$slickGroup) {
+                $('.slider-for').slick({
+                    lazyLoad: 'ondemand',
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    adaptiveHeight: true,
+                    fade: true,
+                    arrows: false,
+                    draggable: false,
+                    asNavFor: '.slider-nav'
+                });
+                $('.slider-nav').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    asNavFor: '.slider-for',
+                    vertical: true,
+                    draggable: false,
+                    focusOnSelect: true
+                    //verticalSwiping: true
+                });
+                $slickGroup = true;
+            }
+        } else {
+            if ($slickGroup) {
+                $('.slider-for').slick('unslick');
+                $('.slider-nav').slick('unslick');
+                $slickGroup = false;
+            }
+        }
+    }
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function labnolThumb(id) {
+        return '<img class="youtube-thumb" src="//i.ytimg.com/vi/' + id + '/hqdefault.jpg"><div class="play-button"></div>';
+    }
+
+    function labnolIframe() {
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("src", "//www.youtube.com/embed/" + this.parentNode.dataset.id + "?autoplay=1&autohide=1");
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("id", "youtube-iframe");
+        this.parentNode.replaceChild(iframe, this);
+    }
+</script>

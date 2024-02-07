@@ -1,0 +1,333 @@
+﻿@{
+    ViewBag.Title = "交通部高速公路局 - 國道公共藝術網";
+    var data = ViewBag.profile;
+    var data2 = ViewBag.profile2;
+    var newslist = ViewBag.newslist;
+    var vediodata = ViewBag.vedio;
+    var mp3data = ViewBag.mp3;
+}
+<style>
+    .youtube-container {
+        display: block;
+        margin: 20px auto;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .youtube-player {
+        display: block;
+        width: 100%; /* assuming that the video has a 16:9 ratio */
+        padding-bottom: 56.25%;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        cursor: hand;
+        cursor: pointer;
+        display: block;
+    }
+
+    img.youtube-thumb {
+        bottom: 0;
+        display: block;
+        left: 0;
+        margin: -9.25% auto;
+        max-width: 100%;
+        width: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: auto
+    }
+
+    div.play-button {
+        height: 72px;
+        width: 72px;
+        left: 50%;
+        top: 50%;
+        margin-left: -36px;
+        margin-top: -36px;
+        position: absolute;
+        background: url("https://i.imgur.com/TxzC70f.png") no-repeat;
+    }
+
+    #youtube-iframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+</style>
+
+<div class="index_page">
+    <!------------  SLIDERS  -------------->
+    <section class="sliderBox blend-mode">
+        <div class="sliderBox__title"><img src="~/Content/images/slider-ttl.png" alt="FREEWAY PUBLIC ART 國道 藝術 好風光"></div>
+        <div class="sliderBox__slick js__slick">
+            @if (Enumerable.Count(data) > 0)
+            {
+                foreach (var i in data)
+                {
+                    <div class="sliderBox__item">
+                        <a href='@Url.Action("Detail", "Home", new { id = i.id })'>
+                            <img data-src="@Url.Content(i.portfolio_Img)" class="photo-around-l" src="@Url.Content(i.portfolio_Img)"
+                                 alt="">
+                        </a>
+                        <div class="sliderBox__text photo-around-s">
+                            <p><a href='@Url.Action("Detail", "Home", new { id = i.id })'>@i.portfolio_name</a></p>
+                            <p class="small">@i.portfolio_cat2 <a href='@Url.Action("Allworks", "Home", new { filter = "" })'>看更多作品</a></p>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="bg-circle bg-circle-1"></div>
+        <div class="bg-circle bg-circle-2"></div>
+    </section>
+
+    <!------------  NEWS  -------------->
+    <section class="section newsBox blend-mode">
+        <div class="view">
+            <div class="section__ttlWrapper justify-content-between">
+                <div class="section__logo"><img src="~/Content/images/title_news.png" alt="最新消息"></div>
+                <div class="section__more pc-show"><a class="dots__bg" href='@Url.Action("Newslist", "Home")'>more..</a></div>
+            </div>
+            <div class="card">
+                @if (Enumerable.Count(newslist) > 0)
+                {
+                    foreach (var i in newslist)
+                    {
+                        <div class="card__item">
+                            <a href='@Url.Action("NewsDetail", "Home", new { id = i.id })'></a>
+                            <div class="card__text">
+                                <p class="limit">@i.tittle</p>
+                                <p class="small date">@DateTime.Parse((Convert.ToString(i.add_date))).ToString("yyyy/MM/dd")</p>
+                            </div>
+                            <div class="card__pic" style="background-image:url('@Url.Content(i.newsImg)')"></div>
+                        </div>
+                    }
+                }
+
+            </div>
+
+            <div class="section__more pad-show"><a class="dots__bg" href='@Url.Action("Newslist", "Home")'>more..</a></div>
+        </div>
+    </section>
+
+
+    <!------------  VIDEO  -------------->
+    @if (vediodata != null)
+    {
+        <section class="videoBox">
+            <div class="view">
+                <div class="section__ttlWrapper justify-content-between row-reverse">
+                    <div class="section__logo">
+                        <img data-src="~/Content/images/title_video.png" src="~/Content/images/title_video.png"
+                             alt="作品影片">
+                    </div>
+                    <div class="section__title section__title__lighten">
+                        <h3 class="section__title__ttl">@vediodata.portfolio_name</h3>
+                        <p class="section__title__cont">@vediodata.portfolio_des1</p>
+                        <div class="section__more"><a class="dots__bg" href="news.html" style="color: #fff">more..</a></div>
+                    </div>
+                </div>
+                <div class="video-container">
+                    <div class="section__video photo-around-l">
+                        @{
+                            var youtubeid = "https://www.youtube.com/embed/" + vediodata.portfolio_vedio;
+
+                            <iframe width="560" height="315" src=@youtubeid frameborder="0"
+                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!------------  VOICEBOX  -------------->
+    @if (mp3data != null)
+    {
+        <section class="section voiceBox">
+            <div class="view">
+                <div class="section__ttlWrapper justify-content-center">
+                    <div class="section__logo">
+                        <img data-src="~/Content/images/title_voice.png" src="~/Content/images/title_voice.png"
+                             alt="語音導覽">
+                    </div>
+                    <div class="section__title section__title__darken">
+                        <h3 class="section__title__ttl">@mp3data.portfolio_name</h3>
+                        <p class="section__title__cont"></p>
+                    </div>
+                </div>
+                <div class="voice__wrapper">
+                    <div class="audio__player">
+                        <div class="audio green-audio-player">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                            </div>
+                            <div class="play-pause-btn playy">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="36" viewBox="0 0 18 24">
+                                    <path fill="#16b73e" fill-rule="evenodd" d="M18 12L0 24V0" class="play-pause-icon"
+                                          id="playPause" />
+                                </svg>
+                            </div>
+
+                            <div class="controls">
+                                <span class="timer current-time">0:00</span>
+                                <div class="slider" data-direction="horizontal">
+                                    <div class="progress">
+                                        <div class="pin" id="progress-pin" data-method="rewind"></div>
+                                    </div>
+                                </div>
+                                <span class="timer total-time">0:00</span>
+                            </div>
+
+                            <div class="volume">
+                                <div class="volume-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="#16b73e" fill-rule="evenodd"
+                                              d="M14.667 0v2.747c3.853 1.146 6.666 4.72 6.666 8.946 0 4.227-2.813 7.787-6.666 8.934v2.76C20 22.173 24 17.4 24 11.693 24 5.987 20 1.213 14.667 0zM18 11.693c0-2.36-1.333-4.386-3.333-5.373v10.707c2-.947 3.333-2.987 3.333-5.334zm-18-4v8h5.333L12 22.36V1.027L5.333 7.693H0z"
+                                              id="speaker" />
+                                    </svg>
+                                </div>
+                                <div class="volume-controls hidden">
+                                    <div class="slider" data-direction="vertical">
+                                        <div class="progress">
+                                            <div class="pin" id="volume-pin" data-method="changeVolume"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <audio crossorigin>
+                                <source src="@Url.Content(mp3data.portfolio_mp3)"
+                                        type="audio/mpeg">
+                            </audio>
+                        </div>
+                    </div>
+                    <div class="voice__photo blend-mode">
+                        <img id="voiceimg" class="photo-around-l" src="~/Content/images/slider/slider_01.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+
+    <!------------  VOICEBOX  -------------->
+    <section class="section featureBox blend-mode">
+        <div class="bg-light-green">
+            <div class="section__title section__title__darken ">
+                <h3 class="section__title__ttl">國道公共藝術特色</h3>
+                <p class="section__title__cont">
+                    設置於高速公路鄰近空間的公共藝術，除了考量作品的藝術性與公共性，更需優先考量駕駛者之行車安全、行進中之視覺衝擊等，因此高速公路的公共藝術相當獨特
+                </p>
+                <div class="section__more"><a class="dots__bg" href='@Url.Action("Allworks", "Home", new { filter = "" })'>more...</a></div>
+            </div>
+        </div>
+
+        <div class="featureBox__card">
+            @if (Enumerable.Count(data2) > 0)
+            {
+                foreach (var i in data2)
+                {
+                    <div class="featureBox__card__item">
+                        <a href='@Url.Action("Detail", "Home", new { id = i.id })'></a>
+                        <div class="featureBox__card__item__ttl"><span>@i.portfolio_name</span></div>
+                        <div class="featureBox__card__item__img">
+                            <span class="img">
+                                <img data-src="@Url.Content(i.portfolio_Img)" src="@Url.Content(i.portfolio_Img)"
+                                     alt="">
+                            </span>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+    </section>
+
+    <!------------  TOP  -------------->
+    <div class="toTopBox" onclick="topFunction()">
+        <img src="~/Content/images/icon/icon_top.png" alt="to top">
+    </div>
+
+    <!------------  loading  -------------->
+    <div class="loading">
+        <div class="loading__overlay"></div>
+        <div class="loading__wrapper">
+            <span class="circle circle-1"></span>
+            <span class="circle circle-2"></span>
+            <span class="circle circle-3"></span>
+            <span class="circle circle-4"></span>
+            <span class="circle circle-5"></span>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Content/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/lazyload.min.js"></script>
+<script type="text/javascript" src="~/Content/js/slick.min.js"></script>
+<script type="text/javascript" src="~/Content/js/audio.js"></script>
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+<script type="text/javascript">
+    (function ($) {       
+       
+
+        //slick
+        $slickGreen = false;
+        slickRun();
+
+        var v = document.getElementsByClassName("youtube-player");
+        for (var n = 0; n < v.length; n++) {
+            var p = document.createElement("div");
+            p.innerHTML = labnolThumb(v[n].dataset.id);
+            p.onclick = labnolIframe;
+            v[n].appendChild(p);
+        }
+
+        var res =@(Html.Raw(Json.Encode(@ViewBag.mp3)));
+        if (res.portfolio_Img != null) {
+            var img = res.portfolio_Img.replace("~", "../");
+            $("#voiceimg").attr("src", img);
+        }
+
+
+    })($);
+    $(window).on('resize', function () {
+        slickRun();
+    });
+    function slickRun() {
+        if ($(window).width() > 900) {
+            if (!$slickGreen) {
+                $(".js__slick").slick({
+                    autoplay: true,
+                    autoplaySpeed: 3000,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    adaptiveHeight: true,
+                    dots: true,
+                    variableWidth: true,
+                });
+                $slickGreen = true;
+            }
+        } else {
+            if ($slickGreen) {
+                $('.js__slick').slick('unslick');
+                $slickGreen = false;
+            }
+        }
+        //https://stackoverflow.com/questions/43071082/can-this-possible-to-unslick-in-desktop-and-slick-slide-in-mobile/43337038
+    }
+    $(function () {
+        //loading
+        setTimeout(function () {
+            $('.loading').fadeOut(300)
+        }, )
+    });
+</script>

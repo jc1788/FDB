@@ -1,0 +1,529 @@
+﻿
+@{
+    ViewBag.Title = "Artists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var data = ViewBag.profile;
+}
+
+<!------------  breadcrumb  -------------->
+<div class="view">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href='@Url.Action("Index", "Home")'>首頁</a></li>
+            <li class="breadcrumb-item"><a href='@Url.Action("Artists", "Home")'>藝術家介紹</a></li>
+        </ol>
+    </div>
+</div>
+
+<!------------  articleBox  -------------->
+<div class="articleBox">
+    <div class="bg-line noborderBtm"></div>
+    <h1 class="articleBox__topbar">藝術家介紹</h1>
+</div>
+
+<!------------  artistsBox  -------------->
+<div class="artistsBox">
+    <div class="view-border">
+        <div class="view">
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">胡復金</h3>
+                    <p class="special">油畫、水彩、馬賽克壁畫</p>
+                    <span class="line">-</span>
+                    <p class="address">國3汐止系統交流道</p>
+                    <p class="artName"> <a id="1" href="~/Home/Detail/1">行車動畫─如意與潮</a></p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[0].portfolio_Img)"></div>                   
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">何中華</h3>
+                    <p class="special">都市設計</p>
+                    <span class="line">-</span>
+                    <p class="address">國3汐止系統交流道</p>
+                    <p class="artName"> <a id="1" href="~/Home/Detail/1">行車動畫─如意與潮</a></p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[0].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">薩燦如</h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國5石碇交流道及服務區</p>
+                    <p class="artName">
+                        <a id="2" href="~/Home/Detail/2">大地脈動</a> /
+                        <a id="3" href="~/Home/Detail/3">時空漂鳥</a> /
+                        <a id="4" href="~/Home/Detail/4">光陰隧道</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[1].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[2].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[3].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">尼古拉‧貝杜 <small>(Nicolas Bertoux)</small></h3>
+                    <p class="special">雕塑、複合媒材</p>
+                    <span class="line">-</span>
+                    <p class="address">國5石碇交流道及服務區</p>
+                    <p class="artName">
+                        <a id="2" href="~/Home/Detail/2">大地脈動</a> /
+                        <a id="3" href="~/Home/Detail/3">時空漂鳥</a> /
+                        <a id="4" href="~/Home/Detail/4">光陰隧道</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[1].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[2].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[3].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">楊致祥</h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">高公局北工處</p>
+                    <p class="artName">
+                        <a id="5" href="~/Home/Detail/5">行之如意</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[4].portfolio_Img)"></div>                   
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">徐振嵐</h3>
+                    <p class="special">裝置藝術、平面視覺設計、3D電腦動畫</p>
+                    <span class="line">-</span>
+                    <p class="address">高公局北工處</p>
+                    <p class="artName">
+                        <a id="5" href="~/Home/Detail/5">行之如意</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[4].portfolio_Img)"></div>                   
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">賴純純</h3>
+                    <p class="special">版畫、雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國3 西湖服務區</p>
+                    <p class="artName">
+                        <a id="" href="~/Home/Detail/6">美麗西湖-同心</a> /
+                        <a id="" href="~/Home/Detail/8">美麗西湖-森林</a> /
+                        <a id="" href="~/Home/Detail/9">美麗西湖-花果園</a>
+                    </p>
+                    <p class="address">國3 古坑服務區</p>
+                    <p class="artName">
+                        <a id="22" href="~/Home/Detail/22">蜻蜓</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[5].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[7].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[8].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[21].portfolio_Img)"></div>
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">黃銘哲</h3>
+                    <p class="special">繪畫、雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國3 西湖服務區</p>
+                    <p class="artName">
+                        <a id="7" href="~/Home/Detail/7">美麗西湖-協力</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[6].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">莊普</h3>
+                    <p class="special">繪畫、雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="10" href="~/Home/Detail/10">歷史之梯</a> /
+                        <a id="14" href="~/Home/Detail/14">歷史之樹</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[9].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[13].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">杜十三</h3>
+                    <p class="special">文學創作</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="11" href="~/Home/Detail/11">歷史詩路</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[10].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">張永村</h3>
+                    <p class="special">繪畫、裝置藝術</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="12" href="~/Home/Detail/12">歷史之石</a> /
+                        <a id="13" href="~/Home/Detail/13">歷史之花</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[11].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[12].portfolio_Img)"></div>                   
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">何恆雄</h3>
+                    <p class="special">雕塑、繪畫</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="15" href="~/Home/Detail/15">歷史之足</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[14].portfolio_Img)"></div>                   
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">鐘俊雄</h3>
+                    <p class="special">繪畫、雕塑、複合媒材</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="16" href="~/Home/Detail/16">歷史之鋤</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[15].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">李茂宗</h3>
+                    <p class="special">陶藝、雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">清水服務區</p>
+                    <p class="artName">
+                        清水八元塑系列：
+                        <a id="17" href="~/Home/Detail/17">歷史之眼</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[16].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">戴峰照</h3>
+                    <p class="special">繪畫、雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國3 南投服務區</p>
+                    <p class="artName">
+                        <a id="18" href="~/Home/Detail/18">壯麗山河</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[17].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">陳健</h3>
+                    <p class="special">雕塑、複合媒材</p>
+                    <span class="line">-</span>
+                    <p class="address">國3南投交流道 及公正巷跨越橋</p>
+                    <p class="artName">
+                        <a id="19" href="~/Home/Detail/19">編織-編</a> /
+                        <a id="20" href="~/Home/Detail/20">編織-織</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[18].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[19].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">楊文霓</h3>
+                    <p class="special">陶藝</p>
+                    <span class="line">-</span>
+                    <p class="address">國1仁德服務區</p>
+                    <p class="artName">
+                        <a id="21" href="~/Home/Detail/21">仁德組曲</a>                       
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[20].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">多田美波 <small>(Minami Tada)</small></h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國3古坑服務區</p>
+                    <p class="artName">
+                        <a id="23" href="~/Home/Detail/23">伸</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[22].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">高燦興</h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國3中埔交流道</p>
+                    <p class="artName">
+                        <a id="24" href="~/Home/Detail/24">繼往開來中埔情</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[23].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">董振平</h3>
+                    <p class="special">雕塑、版畫、多媒體裝置</p>
+                    <span class="line">-</span>
+                    <p class="address">國3東山服務區</p>
+                    <p class="artName">
+                        <a id="25" href="~/Home/Detail/25">鄉間騎士</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[24].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">郭大維</h3>
+                    <p class="special">雕塑、複合媒材</p>
+                    <span class="line">-</span>
+                    <p class="address">國3東山服務區</p>
+                    <p class="artName">
+                        <a id="26" href="~/Home/Detail/26">青春風情畫</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[25].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">范姜明道</h3>
+                    <p class="special">繪畫、雕塑、複合媒材</p>
+                    <span class="line">-</span>
+                    <p class="address">國3關廟服務區</p>
+                    <p class="artName">
+                        <a id="27" href="~/Home/Detail/27">在地點子</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[26].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">達達創意公司</h3>
+                    <p class="special">公共藝術、空間規劃、活動規劃、創意設計</p>
+                    <span class="line">-</span>
+                    <p class="address">國5 雪山隧道</p>
+                    <p class="artName">
+                        <a id="28" href="~/Home/Detail/28">時光拼織</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[27].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">黃浩德</h3>
+                    <p class="special">雕塑、設計、複合媒材、藝術代辦</p>
+                    <span class="line">-</span>
+                    <p class="address">國1泰安服務區北站</p>
+                    <p class="artName">
+                        安安的奇幻樂園系列：
+                        <a id="30" href="~/Home/Detail/30">幻炫木馬</a> /
+                        <a id="34" href="~/Home/Detail/34">幸福轉轉輪</a> /
+                        <a id="31" href="~/Home/Detail/31">咘咘飛天車</a> /
+                        <a id="36" href="~/Home/Detail/36">電光樹精靈</a> /
+                        <a id="29" href="~/Home/Detail/29">酷閃重機</a> /
+                        <a id="33" href="~/Home/Detail/33">酷樂搖搖船</a> /
+                        <a id="32" href="~/Home/Detail/32">蔓葉蹺蹺板</a> /
+                        <a id="35" href="~/Home/Detail/35">飄飄觔斗雲</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[29].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[33].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[30].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[35].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[28].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[32].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[31].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[34].portfolio_Img)"></div>
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">吳建福</h3>
+                    <p class="special">雕塑、設計、複合媒材、藝術代辦</p>
+                    <span class="line">-</span>
+                    <p class="address">國1泰安服務區北站</p>
+                    <p class="artName">
+                        安安的奇幻樂園系列：
+                        <a id="30" href="~/Home/Detail/30">幻炫木馬</a> /
+                        <a id="34" href="~/Home/Detail/34">幸福轉轉輪</a> /
+                        <a id="31" href="~/Home/Detail/31">咘咘飛天車</a> /
+                        <a id="36" href="~/Home/Detail/36">電光樹精靈</a> /
+                        <a id="29" href="~/Home/Detail/29">酷閃重機</a> /
+                        <a id="33" href="~/Home/Detail/33">酷樂搖搖船</a> /
+                        <a id="32" href="~/Home/Detail/32">蔓葉蹺蹺板</a> /
+                        <a id="35" href="~/Home/Detail/35">飄飄觔斗雲</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[29].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[33].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[30].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[35].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[28].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[32].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[31].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[34].portfolio_Img)"></div>
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">陶亞倫</h3>
+                    <p class="special">雕塑、複合媒材、當代美學</p>
+                    <span class="line">-</span>
+                    <p class="address">國1泰安服務區南站</p>
+                    <p class="artName">
+                        幸福驛站系列：
+                        <a id="37" href="~/Home/Detail/37">花園中的音樂木馬</a> /
+                        <a id="38" href="~/Home/Detail/38">餐桌下的秘密基地</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[36].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[37].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">姜憲明</h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國道1號中壢服務區</p>
+                    <p class="artName">
+                        <a id="39" href="~/Home/Detail/39">清逸蓮香</a> /
+                        <a id="40" href="~/Home/Detail/40">甜蜜滋味</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[38].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[39].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">陳麗杏</h3>
+                    <p class="special">雕塑</p>
+                    <span class="line">-</span>
+                    <p class="address">國道1號中壢服務區</p>
+                    <p class="artName">
+                        <a id="39" href="~/Home/Detail/39">清逸蓮香</a> /
+                        <a id="40" href="~/Home/Detail/40">甜蜜滋味</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[38].portfolio_Img)"></div>
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[39].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+            <div class="artistsBox__item">
+                <div class="artistsBox__personal">
+                    <h3 class="author">鄧惠芬</h3>
+                    <p class="special">陶藝</p>
+                    <span class="line">-</span>
+                    <p class="address">國道1號中壢服務區</p>
+                    <p class="artName">
+                        <a id="41" href="~/Home/Detail/41">桐雪客居</a>
+                    </p>
+                </div>
+                <div class="artistsBox__cont">
+                    <div class="imgBox"><img class="img" src="@Url.Content(data[40].portfolio_Img)"></div>                    
+                </div>
+                <div class="content__break"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

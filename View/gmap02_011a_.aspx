@@ -1,0 +1,219 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="gmap02_011a_.aspx.cs" Inherits="View_gmap02_011a" %>
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      <link href="https://code.google.com/apis/maps/documentation/javascript/examples/standard.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map-canvas { height: 100% }
+    </style>
+
+    <title></title>
+    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbDyzkJIxoRAvez7VwmQMOdcOhgMAPto"></script>
+      
+    <script type="text/javascript" src="../Scripts/markerclusterer.js"></script>
+    <!--<script type="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>-->
+      
+
+  </head>
+  <body>
+        <br/>
+        <div id="map-canvas"></div>
+        <div class="gmnoprint" style="z-index: 0; position: absolute; right: 7px; top: 34px;">
+            <br/>
+            <!--
+            <div style="color: rgb(0, 0, 204); background-color: white;" >
+                大面積森林<input type="checkbox" id="forest" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+                交流道<input type="checkbox" id="interchange" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+                隧道<input type="checkbox" id="tunnel" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+                一級敏感里程<input type="checkbox" id="sent1" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+                二級敏感里程<input type="checkbox" id="sent2" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+                三級敏感里程<input type="checkbox" id="sent3" onchange="initialize_kml(this.checked,this.id);;return false;"><br/>
+            </div>
+            -->
+            <!--green Layer<input type="checkbox" id="green" onchange="toggleKMLs(this.checked,this.id);;return false;"><br>-->
+            <!--<div style="color: rgb(0, 0, 204); background-color: white; font-style: normal; font-variant: normal; font-weight: normal; font-size: small; line-height: normal; font-family: Arial; border: 1px solid black; padding: 2px; margin-bottom: 3px; text-align: center; width: 6em; cursor: pointer;">顯示/隱藏森林圖層</div>-->
+        </div>
+        <form id="form1" runat="server">
+            <asp:TextBox ID="mapxy" runat="server" Text="" Visible="True" width="800"/>
+        </form>
+  </body>
+
+    <script type="text/javascript">
+        var map;
+        var url = window.location.toString(); //取得當前網址
+        var str = ""; //參數中等號左邊的值
+        var str_value = ""; //參數中等號右邊的值
+        var x = "";
+        var y = "";
+
+        //var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+        var urls = {
+            'forest': { link: 'https://dl.dropboxusercontent.com/u/153789/maps/kmz/forest.kmz' },
+            'interchange': { link: 'https://dl.dropboxusercontent.com/u/153789/maps/kmz/interchange.kmz' },
+            'tollstations': { link: 'https://dl.dropboxusercontent.com/u/153789/maps/kmz/tollstations.kmz' },
+            'tunnel': { link: 'https://dl.dropboxusercontent.com/u/153789/maps/kmz/tunnel.kmz' },
+            'sent1': { link: 'https://dl.dropboxusercontent.com/u/16007422/1.kmz' },
+            'sent2': { link: 'https://dl.dropboxusercontent.com/u/16007422/2.kmz' },
+            'sent3': { link: 'https://dl.dropboxusercontent.com/u/16007422/3.kmz' }
+        };
+
+        var kmlLayerOptions = {
+            preserveViewport: true,
+            suppressInfoWindows: true
+        };
+
+        function initialize_kml(checked, id) {
+            var mapOptions = {
+                center: new google.maps.LatLng(23.6, 121.1),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+            var myLatLng = new google.maps.LatLng(23.6, 121.1);
+            var beachMarker = new google.maps.Marker({
+                map: map,
+            });
+
+            //下面的字串換成點了地圖後的 marker後顯示的文字
+            var infowindow = new google.maps.InfoWindow({
+                content: "Test"
+            });
+
+            /*
+            google.maps.event.addListener(beachMarker, 'click', function () {
+                infowindow.open(map, beachMarker);
+            });
+            */
+            var markers = [];
+            //var marker = [];
+            //var marker  = new google.maps.Marker({})[];
+            var xy_array = document.getElementById('mapxy').value.split(';');
+            for (var i = 0; i < xy_array.length - 1; i++) {
+                var xy = xy_array[i].split(',');
+                //var url = "fun02_022.aspx?x=" + xy[1] + "&y=" + xy[0];
+		var url = "fun03_011c__.aspx?Plantid=" + xy[4] + "&x=" + xy[1] + "&y=" + xy[0] + "&lo=";
+                var title = "名稱 : " + xy[2] + "\n" + "顏色 : " + xy[3];
+                var latLng = new google.maps.LatLng(xy[0], xy[1]);
+		//var icon = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
+		var icon = "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|";
+		var color = xy[3] ? xy[3].split('|')[0].trim() : 'na';
+		switch(color) {
+		case '白': icon += "f0f0f0"; break;
+		case '紅': icon += "ff0000"; break;
+		case '粉白': icon += "ffd9ec"; break;
+		case '粉紅': icon += "ff60af"; break;
+		case '淡粉紅': icon += "ffaad5"; break;
+		case '淡黃': icon += "ffffaa"; break;
+		case '淡黃綠': icon += "ccff80"; break;
+		case '淺紫': icon += "d3a4ff"; break;
+		case '紫紅': icon += "ff44ff"; break;
+		case '紫': icon += "b15bff"; break;
+		case '黃': icon += "f9f900"; break;
+		case '黃白': icon += "ffffaa"; break;
+		case '黃綠': icon += "a8ff24"; break;
+		case '綠': icon += "00ec00"; break;
+		case '橙黃': icon += "ffd306"; break;
+		case '橘紅': icon += "ff5809"; break;
+		case '鮮紅': icon += "ff2d2d"; break;
+		case '鮮黃': icon += "ffff6f"; break;
+		case '藍': icon += "0080ff"; break;
+		case '艷紫': icon += "ff00ff"; break;
+		default: icon += "6c6c6c"; break;
+		}
+                var marker = new google.maps.Marker({ 'position': latLng, 'title': title, 'url': url,'icon': icon });
+                //marker[i] = new google.maps.Marker({ 'position': latLng, 'title': url, 'url': url });
+                //google.maps.event.addListener(marker[i], "click", function () {
+                google.maps.event.addListener(marker, "click", function () {
+                //    //window.open('fun01_022.aspx?x=' + xy[0] + '&y=' + xy[1], '_self');
+                    window.open(this.url, '_blank');
+                //    //window.open(marker.url, '_blank');
+                //    //alert(this.title);
+                });
+                marker.setMap(map);
+                markers.push(marker);
+            }
+            //markers.push(marker);
+            /*
+            var marker = new GMarker(location);
+            GEvent.addListener(marker, "click", function () {
+                window.location = theURL;
+            });
+            map.addOverlay(marker);
+            */
+            //var markerCluster = new MarkerClusterer(map, markers);
+            //var markerCluster = new MarkerClusterer(map, markers, { imagePath: '../Images/m' });
+
+            //圖層顯示
+            var _id = (typeof id == 'undefined' ? '' : id);
+            //原始圖層
+            /*
+            if (checked) {
+                console.log('call addLayers ' + id);
+                if (urls[_id]['link'].length > 0) {
+                    //var Layer = new google.maps.KmlLayer("https://dl.dropboxusercontent.com/u/153789/maps/kmz/tunnel.kmz", { suppressInfoWindows: true });
+                    var Layer = new google.maps.KmlLayer(urls[_id]['link'], { suppressInfoWindows: true });
+                    Layer.setMap(map)
+                }
+            }
+            else {
+                console.log('remove layers ' + id);
+                if (urls[_id]['link'].length > 0) {
+                    urls[_id].obj.setMap(null);
+                    console.log('did to remove');
+                }
+            }
+            */
+            ////修改後可以套疊的圖層
+            //if (document.getElementById('forest').checked) {
+            //    //var Layer_forest = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/153789/maps/kmz/forest.kmz');
+            //    var Layer_forest = new google.maps.KmlLayer('forest.kmz');
+            //    Layer_forest.setMap(map)
+            //}
+
+            //if (document.getElementById('interchange').checked) {
+            //    //var Layer_interchange = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/153789/maps/kmz/interchange.kmz');
+            //    var Layer_interchange = new google.maps.KmlLayer('interchange.kmz');
+            //    Layer_interchange.setMap(map)
+            //}
+
+            //if (document.getElementById('tunnel').checked) {
+            //    //var Layer_tunnel = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/153789/maps/kmz/tunnel.kmz');
+            //    var Layer_tunnel = new google.maps.KmlLayer('tunnel.kmz');
+            //    Layer_tunnel.setMap(map)
+            //}
+
+            //if (document.getElementById('sent1').checked) {
+            //    //var Layer_sent1 = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/16007422/1.kmz');
+            //    var Layer_sent1 = new google.maps.KmlLayer('1.kmz');
+            //    Layer_sent1.setMap(map)
+            //}
+
+            //if (document.getElementById('sent2').checked) {
+            //    //var Layer_sent2 = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/16007422/2.kmz');
+            //    var Layer_sent1 = new google.maps.KmlLayer('2.kmz');
+            //    Layer_sent2.setMap(map)
+            //}
+
+            //if (document.getElementById('sent3').checked) {
+            //    //var Layer_sent3 = new google.maps.KmlLayer('https://dl.dropboxusercontent.com/u/16007422/3.kmz');
+            //    var Layer_sent1 = new google.maps.KmlLayer('3.kmz');
+            //    Layer_sent3.setMap(map)
+            //}
+
+            /*
+            google.maps.event.addListener(beachMarker, 'click', function () {
+                infowindow.open(map, beachMarker);
+            });
+            */
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize_kml);
+    </script>
+</html>

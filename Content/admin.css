@@ -1,0 +1,287 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+/****************
+  Header
+****************/
+.header{
+	height:100px;
+	background-image: url(../images/admin_header_bg.png);
+	background-repeat: repeat-x;
+}
+.nav {
+	position: absolute;
+	right: 30px;
+	width: 180px;
+	top: 15px;
+	color: #FFF;
+	font-size: 11px;
+}
+.nav2 {
+	position: absolute;
+	right: 30px;
+	width: 180px;
+	top: 53px;
+	color: #FFF;
+	font-size: 11px;
+}
+.nav3 {
+	position: absolute;
+	left: 300px;
+	width: 350px;
+	top: 30px;
+	color: #FFF;
+	font-size: 18px;
+	font-weight:bold;
+}
+.nav4 {
+	position: absolute;
+	right: -140px;
+	width: 200px;
+	top: 30px;
+	color: #FFF;
+	font-size: 11px;
+	font-weight:bold;
+}
+.nav5 {
+	position: absolute;
+	right: -90px;
+	width: 250px;
+	top: 130px;
+	color: #FFF;
+	font-size: 11px;
+	font-weight:bold;
+}
+a{
+	color: #FFF;
+	font-family: "微軟正黑體", Arial;
+	font-size: 13px;
+	text-decoration: none;
+}
+.adminBg{
+	width: 955px;
+	margin-top: 0px;
+	margin-right: auto;
+	margin-bottom: 0px;
+	margin-left: auto;
+}
+.titleBig{
+	background-image: url(../images/admin_top.png);
+	background-repeat: no-repeat;
+	height: 14px;
+}
+.mainSpeaceTitle{
+	background-image: url(../images/admin_top_title.png);
+	background-repeat: no-repeat;
+	padding-left: 55px;
+	font-size: 16px;
+	color: #44748E;
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	height: 18px;
+}
+.subTitle{
+	font-size: 16px;
+	color: #44748E;
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	height: 18px;
+}
+.mainSpeace{
+	background-image: url(../images/admin_Bg.png);
+	background-repeat: repeat-y;
+	padding-left: 40px;
+	padding-top: 20px;
+	font-size: 14px;
+	color: #333;
+	font-family: "微軟正黑體", "Arial Unicode MS";
+}
+.footerBg{
+	background-image: url(../images/admin_footer.png);
+	background-repeat: no-repeat;
+	height: 14px;
+}
+.visSpcace{
+	margin-bottom: 3px;
+	margin-top: 5px;
+}
+.DownladSpcace{
+	margin-bottom: 3px;
+	margin-top: 15px;
+	color: #737373;
+}
+.ProductList4Spcace{
+	height: 20px;
+	padding-top: 5px;
+}
+.ProductNew1Pic{
+	padding-left: 4px;
+}
+.BtnSpcace{
+	margin-top: 5px;
+}
+.button{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	color: #333333;
+	background-color: #E0E0E0;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-size: 14px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #CCC;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	border-left-color: #CCC;
+}
+.list1{
+	background-color: #FFF;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	vertical-align: middle;
+	text-align: center;
+	border: 1px solid #F3F3F3;
+}
+.list1_left{
+	background-color: #FFF;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	vertical-align: middle;
+	padding-left: 3px;
+	border: 1px solid #F3F3F3;
+}
+.list2{
+	background-color: #FFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 0px;
+	border-top-style: dotted;
+	border-right-style: dotted;
+	border-bottom-style: dotted;
+	border-left-style: none;
+	border-top-color: #999;
+	border-right-color: #999;
+	border-bottom-color: #999;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+.list3{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 13px;
+	color: #FFF;
+	background-color: #1a78b6;
+	text-align: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border: 1px solid #F3F3F3;
+}
+.listw80{
+	background-color: #FFF;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-align: right;
+	width: 50px;
+}
+.listw600{
+	background-color: #FFF;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.textfield{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	color: #FFF;
+	background-color: #AFAFAF;
+	border: 1px solid #D6D6D6;
+	font-size: 13px;
+}
+.textfield2{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	color: #333;
+	background-color: #FFF;
+	border: 1px solid #D6D6D6;
+	font-size: 12px;
+}
+.attentionWord{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 13px;
+	color: #4479CA;
+	vertical-align: middle;
+}
+.attentionWord2{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 13px;
+	color: #FF0033;
+	vertical-align: middle;
+}
+.attentionWord3{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 13px;
+	color: #4479CA;
+}
+.attentionWord4{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 13px;
+	color: #666666;
+	background-position: 20px;
+	margin-top: 20px;
+	padding-top: 20px;
+}
+.attentionWord5{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #4479CA;
+}
+.attentionWord6{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #CC0000;
+}
+.searchBar{
+	background-image: url(../images/listBg1.gif);
+	padding-top: 4px;
+	padding-bottom: 5px;
+	padding-left: 4px;
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #666;
+	height: 8px;
+}
+.searchBar2{
+	background-image: url(../images/listBg2.gif);
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #666;
+}
+.iconSpace{
+	margin: 1px;
+}
+a.num{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #C00;
+	text-decoration: underline;
+}
+a:hover.num{
+	color: #44748E;
+}
+
+.content{
+	font-family: "微軟正黑體", "Arial Unicode MS";
+	font-size: 14px;
+	color: #FFFFFF;
+}

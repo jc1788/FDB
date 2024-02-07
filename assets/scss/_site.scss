@@ -1,0 +1,124 @@
+// 全站設定
+
+//載入google font-思源黑體
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+//載入google font-Lato英文字體
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+// bs5 icon
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css");
+
+
+body {
+  font-family: "Noto Sans CJK TC", "Microsoft JhengHei", PingFang, STHeiti, sans-serif, serif;
+}
+*,*:before,*:after{
+  box-sizing: border-box;
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
+a{
+  text-decoration: none;
+  transition: all .3s;
+}
+
+// 預設ul ol樣式沒有點,去掉bs預設底部1rem
+ul,
+ol {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+//去掉bs預設有mb
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+p {
+  margin-bottom: 0;
+}
+//去掉bs預設
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+/* Rules for sizing the icon. */
+// 連結對齊icon必設
+.material-icons {
+  display:inline-flex;
+  vertical-align:top;
+}
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+//container-md
+// @media (max-width: 768px) {
+//   .container{
+//     max-width: 100%;
+//   }
+//   .w-md-100{
+//     width: 100%;
+//   }
+
+
+
+//   學員預設
+// img {
+//   max-width: 100%;
+//   height: auto;
+// }
+
+// a {
+//   text-decoration: none !important;
+//   display: block;
+//   color: $black;
+// }
+
+// html {
+//   font-size: $font-size-base;
+// }
+
+// body {
+//   font-family: $font-family-base;
+//   line-height: $line-height-base;
+// }
+
+
+// .font-size {
+//   &-sm {
+//     font-size: $font-size-sm;
+//   }
+// }
+
+// .material-icons {
+//   vertical-align: bottom;
+// }
+
+// .line-height-1 {
+//   line-height: 1;
+// }
+
+// .bg-cover {
+//   background-size: cover;
+//   background-position: center center;
+// }

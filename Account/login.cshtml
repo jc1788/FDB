@@ -1,0 +1,313 @@
+﻿@using Resources;
+@section Scripts {
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = Resource.Login;
+
+    // 初始化一般頁面變數
+    var user_name = "";
+    var password = "";
+    var returnUrl = Request.QueryString["ReturnUrl"];
+    var mysso = "";
+    var admsg = "display:none";
+    var returnUrl2 = Request.QueryString["ReturnUrl"];
+    
+    if (returnUrl.IsEmpty()) {
+        // 部分外部登入提供者一律要求傳回的 URL 值
+        returnUrl = Href("~/");
+    }
+    returnUrl = "/NewDefault.aspx";
+
+    // 設定驗證
+    Validation.RequireField("user_name", "請輸入使用者名稱!");
+    Validation.RequireField("password", "請輸入密碼!");
+    Validation.RequireField(ImageUtil.CAPTCHA, "請輸入圖形驗證碼!");
+    /*Validation.Add("password",
+        Validator.StringLength(
+            maxLength: Int32.MaxValue,
+            minLength: 6,
+            errorMessage: "密碼長度至少必須有 6 個字元"));*/
+
+
+
+    // 如果這是 POST 要求，則會驗證和處理資料
+    if (IsPost) {
+        AntiForgery.Validate();
+        user_name = Request.Form["user_name"];
+        password = Request.Form["password"];
+
+        if (ImageUtil.Validate())
+        {
+	    freewayDbDataContext db = new freewayDbDataContext();
+            var user = (from u in db.userdata
+                        where (u.user_login_name == user_name && u.password == password)
+                        select new {u.uid, u.role, u.user_email, u.user_institution}).FirstOrDefault();
+            db.Dispose();
+
+            if (user != null)
+	    //DB Login
+            {
+		userlog(user.uid, "AP_LOGIN_SUCCESS");
+
+                //2013/6/24 新增產生Session uid與role
+                Context.Session["uid"] = user.uid;
+                Context.Session["role"] = user.role;
+                Context.Session["user_institution"] = user.user_institution;
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
+                        user_name,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        true,
+                        "",
+                        FormsAuthentication.FormsCookiePath);
+
+                string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                // Create the cookie.
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                
+                Context.RedirectLocal(returnUrl);
+                return;
+            } else {
+	    //AD Login Check
+	    string sCPCPerson = "No";
+
+	    if (user_name != "admin")
+	    {
+		string deptType = null;
+		string clientIP = LdapClass.ChkUser.GetClientIP(HttpContext.Current.Request);
+                string[] xClientIP = clientIP.Split('.');
+                if (xClientIP.Length > 2)
+                {
+                    if (xClientIP[0] == "10")
+                    {
+                        switch (xClientIP[1])
+                        {
+                        case "53": //南工
+                            deptType = "南";
+                            break;
+                        case "50": //總局
+                        case "51": //北工
+                        case "52": //中工
+                        case "54": //第一新建工程處
+                        case "55": //第二新建工程處
+                            deptType = "總";
+                            break;
+                        }
+                    }
+                }
+
+		bool bChk = LdapClass.ReadAD.CheckUser(user_name, password, deptType); //密碼是否正確
+		if (bChk == true)
+		{
+		    string errData = LdapClass.ChkUser.ChkLDAP_UID(user_name, password, deptType);
+		    if (errData == "")
+		    {
+			sCPCPerson = "Yes";
+		    }
+		}
+	    }
+
+	    //AD User
+	    if (sCPCPerson == "Yes")
+	    {
+	    freewayDbDataContext db2 = new freewayDbDataContext();
+            var user2 = (from u in db2.userdata
+                        where (u.user_login_name == user_name)
+                        select new {u.uid, u.role, u.user_email, u.user_institution}).FirstOrDefault();
+            db2.Dispose();
+            if (user2 != null)
+            {
+		userlog(user2.uid, "AD_LOGIN_SUCCESS");
+
+                //2013/6/24 新增產生Session uid與role
+                Context.Session["uid"] = user2.uid;
+                Context.Session["role"] = user2.role;
+		Context.Session["user_institution"] = user2.user_institution;
+                
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
+                        user_name,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        true,
+                        "",
+                        FormsAuthentication.FormsCookiePath);
+
+                string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                // Create the cookie.
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                
+                Context.RedirectLocal(returnUrl);
+                return;
+            } else {
+	    //Create New Account
+            try
+            {
+		System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["freewayDbConnectionString"].ConnectionString.ToString());
+		System.Data.SqlClient.SqlCommand cmd;
+
+		string sql = "Insert Into userdata (user_login_name,password,role,user_name,user_email,user_institution) ";
+		sql = sql + " values ( '" +  user_name + "' , '' , '2' , '" + user_name + "' , '' , '' )";
+                conn.Open();
+                cmd = new System.Data.SqlClient.SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+                conn.Dispose();
+
+		userlog(-1, "CREATE_USER_FROM_AD: " + user_name);
+
+		freewayDbDataContext db3 = new freewayDbDataContext();
+                var user3 = (from u in db3.userdata
+                        where (u.user_login_name == user_name)
+                        select new {u.uid, u.role, u.user_email, u.user_institution}).FirstOrDefault();
+                db3.Dispose();
+
+		userlog(user3.uid, "AD_LOGIN_SUCCESS");
+
+                Context.Session["uid"] = user3.uid;
+                Context.Session["role"] = user3.role;
+		Context.Session["user_institution"] = user3.user_institution;
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1,
+                        user_name,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(30),
+                        true,
+                        "",
+                        FormsAuthentication.FormsCookiePath);
+
+                string encTicket = FormsAuthentication.Encrypt(ticket);
+
+                // Create the cookie.
+                HttpContext.Current.Response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encTicket));
+                
+                Context.RedirectLocal(returnUrl);
+                return;               
+            }
+            catch (Exception ex)
+            {
+                // 在這裡新增錯誤處理方式以便進行偵錯。
+                System.Diagnostics.Trace.WriteLine("[ValidateUser] Exception " + ex.Message);
+            }
+            } //End of user2
+            
+            } else {
+		//sCPCPerson == "No" 
+		userlog(-1, "LOGIN_FAILED: " + user_name);
+
+		ModelState.AddFormError("提供的使用者名稱或密碼不正確。.");
+	    }
+	    } //End of AD Login Check
+        }
+    } else {
+	string clientIP = LdapClass.ChkUser.GetClientIP(HttpContext.Current.Request);
+	if (returnUrl2 != "na" && clientIP != "")
+	{
+	    string[] xClientIP = clientIP.Split('.');
+	    if (xClientIP.Length > 2)
+	    {
+		if (xClientIP[0] == "10")
+		{
+		    switch (xClientIP[1])
+		    {
+                        case "50": //總局
+                        case "51": //北工
+                        case "52": //中工
+                        case "54": //第一新建工程處
+                        case "55": //第二新建工程處
+                        case "53": //南工
+			    //mysso = "../adlogin";
+			    //admsg = "";
+ 			    break;
+		    }
+		}
+	    }
+	}
+    }
+}
+
+@functions
+{
+    void userlog(int uid, string action)
+    {
+	string source_ip = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+	if (source_ip == null) source_ip = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+
+	try
+	{
+	    System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.ConnectionStrings["freewayDbConnectionString"].ConnectionString.ToString());
+	    System.Data.SqlClient.SqlCommand cmd;
+
+	    conn.Open();
+	    string sql = "insert into userlog(uid,action,atime,source_ip) values(@uid,@action,getdate(),@source_ip)";
+	    cmd = new System.Data.SqlClient.SqlCommand(sql, conn);
+	    cmd.Parameters.AddWithValue("uid", uid);
+	    cmd.Parameters.AddWithValue("action", action);
+	    cmd.Parameters.AddWithValue("source_ip", source_ip);
+	    cmd.ExecuteNonQuery();
+
+	    cmd.Dispose();
+	    conn.Dispose();
+	} catch (Exception ex)
+	{
+	    System.Diagnostics.Trace.WriteLine("[ValidateUser] Exception " + ex.Message);
+	}
+    }
+}
+
+
+<form method="post">
+    @AntiForgery.GetHtml()
+    @Html.ValidationSummary("登入失敗。請更正錯誤，然後再試一次。", excludeFieldErrors: true, htmlAttributes: null)
+    <table style="border-width:0px; width:1000px; background-color:#c69f1a; padding:2px; border-spacing:2px" background="~/images/frame/01.jpg">
+        <tr>
+            <td colspan="2" style="width:500px">
+                <img id="logo" src="~/images/frame/03.jpg"  alt="交通部臺灣區國道高速公路總局國道生態資料庫"/>
+            </td>
+	    <td rowspan="4" style="width:500px">
+		<img id="logo" src="~/images/frame/03.jpg"  alt="交通部臺灣區國道高速公路總局國道生態資料庫"/><br><br>
+		<input style="width: 150px; height: 70px; font-size:18px" type="button" value="局內 AD 登入" onclick="document.getElementById('mySso').src='../adlogin';this.style.display='none';document.getElementById('ad_msg').style.display='';" />
+		<span id="ad_msg" style="@admsg">AD登入資訊檢測中...</span>
+	     </td>
+        </tr>
+        <tr>
+            <td class="login" style="text-align:right;width:150px">@Resource.UserName：</td>
+            <td style="text-align:left">
+                <input type="text" id="user_name" name="user_name" value="@user_name" @Validation.For("user_name")/>
+                @Html.ValidationMessage("user_name")
+            </td>
+        </tr>
+        <tr>
+            <td class="login" style="text-align:right">@Resource.Password：</td>
+            <td style="text-align:left">
+                <input type="password" id="password" name="password" @Validation.For("password")/>
+                @Html.ValidationMessage("password")
+            </td>
+        </tr>
+        <tr>
+            <td class="login" style="text-align:right">@Resource.Captcha：<br />
+                
+            </td>
+            <td style="text-align:left">
+                <input type="text" id="@ImageUtil.CAPTCHA" name="@ImageUtil.CAPTCHA" size="5" @Validation.For(ImageUtil.CAPTCHA) />
+                @Html.ValidationMessage(ImageUtil.CAPTCHA)<br/><br/>
+                <img id="captchaImg" src="@ImageUtil.GetImgData()" alt="@Resource.Captcha" style="width:91px;height:27px" />
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="vertical-align: top;text-align:center">
+                <input class="button" type="submit" value="@Resource.Login" />
+            </td>
+        </tr>
+    </table>
+    <iframe id="mySso" frameborder="0" src="@mysso" style="display:none;visibility:hidden"></iframe>
+</form>
+

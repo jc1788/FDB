@@ -1,0 +1,36 @@
+.SuggestFramework_List
+{*margin-left:0px;
+_margin-left:0px;	
+	border: 1px solid #CCCCCC;
+	border-top: 0px;
+	width:180;
+}
+
+.SuggestFramework_Heading
+{*margin-left:-76px;
+_margin-left:-76px;
+	padding: 0px 1px 0px 1px;
+	background-color: #CCCCCC;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.SuggestFramework_Highlighted
+{*margin-left:-76px;
+_margin-left:-76px;	padding: 0px 1px 0px 1px;
+	background-color: Highlight;
+	color: HighlightText;
+	font-size:15px;
+}
+
+.SuggestFramework_Normal
+{
+*margin-left:-76px;
+_margin-left:-76px;
+	padding: 0px 1px 0px 1px;
+	background-color: #FFFFCC;
+	color: #000000;
+	border-bottom:thin #CCCCCC;
+	font-size:14px;
+	
+}

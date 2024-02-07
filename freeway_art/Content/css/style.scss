@@ -1,0 +1,24 @@
+
+//基本的CSS
+@import "mixin/_rwd.scss";
+@import "mixin/_utility.scss";
+@import "mixin/_reset.scss";
+
+// SCSS - plugins 共用外掛
+@import "plugins/_slick.scss";
+@import "plugins/_fancybox.scss";
+@import "plugins/_custome.scss";
+// SCSS - layout 共用結構模組
+@import "svg/_icon.scss";
+@import "layout/_menu.scss";
+// SCSS - pages
+@import "layout/_button.scss";
+@import "layout/_breadcrumb.scss";
+@import "layout/_pagination.scss";
+@import "layout/_common.scss";
+@import "layout/_custom.scss";
+@import "layout/_Breaking-News.scss";
+@import "layout/_artwork-detail.scss";
+@import "layout/_starter.scss";
+@import "layout/_artists.scss";
+@import "layout/_Breaking-News-list.scss";

@@ -1,0 +1,54 @@
+// 主導覽＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// 外層增加mainNav改寫bs原本樣式
+.mainNav .navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 0.75);
+    &:hover {
+        color: $primary;
+    }
+}
+
+.mainNav .navbar-light .navbar-nav .nav-link.active {
+    color: $black;
+}
+
+.mainNav .dropdown-menu {
+    margin: 13px 0 0;
+    border: none;
+    border-radius: 0;
+    background-color: $primary;
+}
+
+.mainNav .dropdown-item {
+    color: $white;
+    &:hover {
+        background-color: darken($primary, 10%);
+    }
+}
+.mainNav .navbar-toggler-icon{
+    width: 2.25rem;
+}
+.mainNav .navbar-toggler{
+border: none;
+}
+.mainNav .navbar-toggler:focus,.mainNav .navbar-toggler:active{
+    outline: 0;
+}
+
+.mainNav .dropdown-toggle::after{
+    border: solid rgba(0, 0, 0, 0.75);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+.mainNav .dropdown-toggle:hover::after{
+    border: solid $primary;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+

@@ -1,0 +1,9 @@
+// 改寫麵包屑的顏色
+.breadcrumbNav .breadcrumb-item.active{
+    color: $white;
+}
+// 改寫BS modal寬度
+.modal-fullscreen{
+    width: 95vw;
+    @include horizontal-center;
+}

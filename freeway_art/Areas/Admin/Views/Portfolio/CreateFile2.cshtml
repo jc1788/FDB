@@ -1,0 +1,85 @@
+﻿@model List<FW2017.Models.PortfolioFile>
+@{
+    ViewBag.Title = "CreateFile2";
+}
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                作品維護資料 @ViewBag.portfolio_name
+                <small></small>
+            </div>
+        </div>
+        <!-- START row-->
+        <div class="row">
+            <div class="col-xl-12">
+                <form method="post" enctype="multipart/form-data">
+                    <!-- START card-->
+                    <div class="card card-default">
+                        <div class="card-header">
+                            @Html.AntiForgeryToken()
+                            <div class="card-title">作品維護資料</div>
+                            <p style="color:red">
+                                檔案上傳檔案大小限制爲50mb。
+                            </p>
+                            <input class="form-control" type="text" name="id" value=@ViewBag.id style="display:none">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="form-group imgGroup">
+
+                                    @Html.ActionLink((string)item.pro_file, "DownloadFile", "Portfolio", new { file = item.pro_file }, null)
+                                    <input class="form-control imgid" type="text" name="imgid" value=@item.id style="display:none">
+                                    <div class="input-group-addon">
+                                        <a href="javascript:void(0)" class="btn btn-danger removeimg">刪除</a>
+                                    </div>
+                                </div>
+                            }
+                            <input class="form-control" type="text" id="deleteid" name="deleteid" style="display:none">
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="col-form-label">維護資料</label>
+                                <input id="myFile" class="form-control" type="file" name="postedFiles" multiple="multiple">
+                            </div>
+                            <!-- copy of input fields group -->
+                        </div>
+                        <div class="card-footer">
+                            @Html.ActionLink("取消", "Index", "Portfolio", null, new { @class = "btn btn-secondary btn-large" })
+                            <button class="btn btn-success" type="submit">儲存</button>
+                        </div>
+                    </div>
+                    <!-- END card-->
+                </form>
+            </div>
+        </div>
+        <!-- END row-->
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/Content/admin/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
+    <!-- PARSLEY-->
+    <script src="~/Content/admin/vendor/parsleyjs/dist/parsley.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var delid = [];
+
+            //remove fields group
+            $(".imgGroup").on("click", ".removeimg", function () {
+                console.log($(this));
+                var a = $(this).parents('.imgGroup').find(".imgid").val();
+                delid.push(a);
+                console.log(delid);
+                $(this).parents(".imgGroup").remove();
+                $('#deleteid').val(delid);
+
+            });
+          
+
+        });
+    </script>
+}

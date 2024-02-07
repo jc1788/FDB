@@ -1,0 +1,374 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="front.master.cs" Inherits="front" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- close telephone -->
+  <meta name="format-detection" content="telephone=no">
+  <title>國道生態資料庫系統</title>
+  <!-- css -->
+  <link rel="stylesheet" href="./assets/scss/all.css">
+  <!-- ico -->
+  <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico" />
+
+    <!-- Bootstrap Table JQ -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+
+  <!-- tab cdn -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server">
+  </asp:ContentPlaceHolder>
+</head>
+
+<body>
+  <!-- 主導覽 -->
+  <div class="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand" href="index.aspx"><img src="./assets/images/logo.png" width="220" height="47" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto pl-lg-5 pl-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                生態資料庫管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="occurrence_search.aspx">生態調查資料</a></li>
+                <li><a class="dropdown-item" href="roadkill_statistic.aspx">道路致死資料</a></li>
+                <li><a class="dropdown-item" href="plant_search.aspx">現況植栽資料</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                環境工程管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <li><a class="dropdown-item" href="plant_eng.aspx">植栽工程資料</a></li>
+                <li><a class="dropdown-item" href="eco_report.aspx">生態調查報告</a></li>
+                <li><a class="dropdown-item" href="road_status.aspx">路權空間資料</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                相關資料
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                <li><a class="dropdown-item" href="Roadkill_bulletin_add.aspx">受傷動物通報</a></li>
+                <li><a class="dropdown-item" href="Roadkill_bulletin.aspx">通報事件查詢</a></li>
+                <li><a class="dropdown-item" href="trans_new">里程座標轉換</a></li>
+                <!-- li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">文件下載</a></li -->
+              </ul>
+            </li>
+            <li class="nav-item dropdown" id="admin" runat="server">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                系統管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                <li><a class="dropdown-item" href="">系統帳號維護</a></li>
+                <li><a class="dropdown-item" href="">道路致死匯出</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto d-md-flex flex-md-row d-sm-flex flex-sm-row">
+            <li class="px-3 py-2 font-size-sm min-w120px">
+              <asp:Literal ID="luser" runat="server"></asp:Literal>
+              <form id="logoutForm" action="Account/Logout2" method="post" style="display: inline; float: right">
+                 <a href="javascript:document.getElementById('logoutForm').submit()">登出</a>
+              </form>
+            </li>
+            <li class="nav-item min-w120px">
+              <button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal"
+                data-bs-target="#searchModal"><i class="bi bi-search pe-2"></i>資料搜尋</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!--/.主導覽 -->
+  <!-- 搜尋Modal -->
+  <form id="form1" runat="server">
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <section id="tabs">
+            <div class="container g-0">
+              <div class="row">
+                <div class="col">
+                  <div id="underlineTabs">
+                  <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link <%= Session["qtype"] == null || Session["qtype"].ToString() == "1" ? "active" : "" %>" id="nav_home_tab" data-toggle="tab" href="#nav-search01"
+                        role="tab" aria-controls="nav-home" aria-selected="true">依國道公里數查詢</a>
+                      <a class="nav-item nav-link <%= Session["qtype"] != null && Session["qtype"].ToString() == "2" ? "active" : "" %>" id="nav_profile_tab" data-toggle="tab" href="#nav-search02"
+                        role="tab" aria-controls="nav-profile" aria-selected="false">依工程分局查詢</a>
+		      <asp:HiddenField id="qtype" runat="server" />
+                    </div>
+                  </nav>
+                </div>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show bg-light mt-2 py-4 <%= Session["qtype"] == null || Session["qtype"].ToString() == "1" ? "active" : "" %>" id="nav-search01" role="tabpanel"
+                      aria-labelledby="nav-search01-tab">
+                      <div class="container">
+                      <div class="formCheckWrap">
+                        <div class="form-check form-check-inline">
+                          <asp:CheckBox ID="cb1" runat="server" checked />
+                          <asp:Label ID="lb_cb1" Cssclass="form-check-label" AssociatedControlId="cb1" runat="server">生態調查資料</asp:Label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <asp:CheckBox ID="cb2" runat="server" checked />
+                          <asp:Label ID="lb_cb2" Cssclass="form-check-label" AssociatedControlId="cb2" runat="server">道路致死資料</asp:Label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <asp:CheckBox ID="cb3" runat="server" checked />
+                          <asp:Label ID="lb_cb3" Cssclass="form-check-label" AssociatedControlId="cb3" runat="server">現況植栽資料</asp:Label>
+                        </div>
+                      </div>
+                      <div class="row g-2 my-2">
+                        <div class="col">
+                          <asp:TextBox ID="searchtxt" Cssclass="form-control form-control-lg" runat="server" placeholder="請輸入關鍵字"
+                            aria-label=".form-control-lg example" />
+                        </div>
+                      </div>
+                      <div class="row g-2 my-2">
+                        <div class="col-12 col-md-6">
+                          <div class="form-floating">
+                            <asp:TextBox ID="start_date" Cssclass="form-control" TextMode="date" runat="server" />
+			    <asp:Label ID="lb_start_date" AssociatedControlId="start_date" runat="server">資料開始日期</asp:Label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-floating">
+                            <asp:TextBox ID="end_date" Cssclass="form-control" TextMode="date" runat="server" />
+			    <asp:Label ID="lb_end_date" AssociatedControlId="end_date" runat="server">資料結束日期</asp:Label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row g-2 my-2">
+                        <div class="col-12 col-md-4">
+                          <div class="form-floating">
+                            <asp:DropDownList ID="highwayid" Cssclass="form-select" runat="server" DataTextField="highway_name" DataValueField="highway_id"
+			    aria-label="Floating label select example">
+                            </asp:DropDownList>
+                            <asp:Label ID="lb_highwayid" AssociatedControlId="highwayid" runat="server">國道編號</asp:Label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-2 form-floating">
+                            <asp:TextBox ID="start1" Cssclass="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" runat="server" />
+			    <asp:Label ID="lb_start1" AssociatedControlId="start1" runat="server">起始里程(公里)</asp:Label>
+                        </div>
+                        <div class="col-12 col-md-2 form-floating">
+                            <asp:TextBox ID="start2" Cssclass="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" runat="server" />
+			    <asp:Label ID="lb_start2" AssociatedControlId="start2" runat="server">＋公尺</asp:Label>
+                        </div>
+                        <div class="col-12 col-md-2 form-floating">
+                            <asp:TextBox ID="end1" Cssclass="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" runat="server" />
+			    <asp:Label ID="lb_end1" AssociatedControlId="end1" runat="server">結束里程(公里)</asp:Label>
+                        </div>
+                        <div class="col-12 col-md-2 form-floating">
+                            <asp:TextBox ID="end2" Cssclass="form-control" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" runat="server" />
+			    <asp:Label ID="lb_end2" AssociatedControlId="end2" runat="server">＋公尺</asp:Label>
+                        </div>
+                      </div>
+                              <div class="row g-2 my-2">
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+                                    <asp:DropDownList ID="DropDownList3" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource3" DataTextField="Sensitive_level" DataValueField="Sensitive_level"
+				    aria-label="Floating label select example">
+				    <asp:ListItem Value="ALL">ALL</asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT 'ALL' Sensitive_level UNION ALL SELECT DISTINCT Sensitive_level FROM freeway"></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList3" AssociatedControlId="DropDownList3" runat="server">敏感里程等級</asp:Label>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+				    <asp:DropDownList ID="DropDownList1" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource1" DataTextField="title" DataValueField="title"
+				    aria-label="Floating label select example">
+				    <asp:ListItem Value="ALL">ALL</asp:ListItem>
+				    </asp:DropDownList>
+				    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT 'ALL' title UNION ALL SELECT title FROM [Animal]"></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList1" AssociatedControlId="DropDownList1" runat="server">物種類群</asp:Label>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+                                    <asp:DropDownList ID="DropDownList2" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource2" DataTextField="species_Name" DataValueField="species"
+				    aria-label="Floating label select example">
+				    <asp:ListItem Value="">ALL</asp:ListItem>
+                                    </asp:DropDownList>
+				    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT '' AS species , 'ALL' AS species_Name  UNION ALL Select species , species_name From  Focus_Species "></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList2" AssociatedControlId="DropDownList2" runat="server">關注物種</asp:Label>
+                                  </div>
+                                </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+          <asp:Button ID="btn_search" Cssclass="btn btn-secondary" PostBackUrl="searchall.aspx" runat="server" Text="搜尋" />
+        </div>
+                              </div>
+                    </div>
+                    </div>
+                    <div class="tab-pane fade show bg-light mt-2 py-4 <%= Session["qtype"] != null && Session["qtype"].ToString() == "2" ? "active" : "" %>" id="nav-search02" role="tabpanel"
+                      aria-labelledby="nav-search02-tab">
+                              <div class="container">
+                              <div class="formCheckWrap">
+                        <div class="form-check form-check-inline">
+			  <asp:CheckBox ID="cb12" runat="server" checked />
+			  <asp:Label ID="lb_cb12" Cssclass="form-check-label" AssociatedControlId="cb12" runat="server">生態調查資料</asp:Label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <asp:CheckBox ID="cb22" runat="server" checked />
+                          <asp:Label ID="lb_cb22" Cssclass="form-check-label" AssociatedControlId="cb22" runat="server">道路致死資料</asp:Label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <asp:CheckBox ID="cb32" runat="server" checked />
+                          <asp:Label ID="lb_cb32" Cssclass="form-check-label" AssociatedControlId="cb32" runat="server">現況植栽資料</asp:Label>
+                        </div>
+                              </div>
+                              <div class="row g-2 my-2">
+                                <div class="col">
+                          <asp:TextBox ID="searchtxt2" Cssclass="form-control form-control-lg" runat="server" placeholder="請輸入關鍵字"
+                            aria-label=".form-control-lg example" />
+                                </div>
+                              </div>
+                      <div class="row g-2 my-2">
+                        <div class="col-12 col-md-6">
+                          <div class="form-floating">
+                            <asp:TextBox ID="start_date2" Cssclass="form-control" TextMode="date" runat="server" />
+			    <asp:Label ID="lb_start_date2" AssociatedControlId="start_date2" runat="server">資料開始日期</asp:Label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                          <div class="form-floating">
+                            <asp:TextBox ID="end_date2" Cssclass="form-control" TextMode="date" runat="server" />
+			    <asp:Label ID="lb_end_date2" AssociatedControlId="end_date2" runat="server">資料結束日期</asp:Label>
+                          </div>
+                        </div>
+                      </div>
+			<asp:ScriptManager ID="ScriptManager1" runat="server" ScriptMode="Release" />
+			<asp:UpdatePanel ID="upsite" runat="server" UpdateMode="Conditional">
+		        <ContentTemplate>
+                      <div class="row g-2 my-2">
+                        <div class="col-12 col-md-6">
+                          <div class="form-floating">
+                            <asp:DropDownList ID="DropDownList4" Cssclass="form-select" runat="server" DataTextField="class1" DataValueField="class1"
+			    aria-label="Floating label select example" OnSelectedIndexChanged="DropDownList4_SelectedIndexChanged" AutoPostBack="true">
+                            </asp:DropDownList>
+                            <asp:Label ID="lb_DropDownList4" AssociatedControlId="DropDownList4" runat="server">工程分局</asp:Label>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-6 form-floating">
+                            <asp:DropDownList ID="DropDownList5" Cssclass="form-select" runat="server" DataTextField="class2" DataValueField="class2"
+			    aria-label="Floating label select example">
+			    <asp:ListItem Value="ALL">ALL</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Label ID="lb_DropDownList5" AssociatedControlId="DropDownList5" runat="server">工務段</asp:Label>
+                        </div>
+                      </div>
+		        </ContentTemplate>
+			<Triggers>
+			    <asp:AsyncPostBackTrigger ControlID="DropDownList4" EventName="SelectedIndexChanged" />
+			</Triggers>
+		        </asp:UpdatePanel>
+                              <div class="row g-2 my-2">
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+                                    <asp:DropDownList ID="DropDownList32" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource32" DataTextField="Sensitive_level" DataValueField="Sensitive_level"
+				    aria-label="Floating label select example">
+                                    </asp:DropDownList>
+                                    <asp:SqlDataSource ID="SqlDataSource32" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT 'ALL' Sensitive_level UNION ALL SELECT DISTINCT Sensitive_level FROM freeway"></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList32" AssociatedControlId="DropDownList32" runat="server">敏感里程等級</asp:Label>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+				    <asp:DropDownList ID="DropDownList12" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource12" DataTextField="title" DataValueField="title"
+				    aria-label="Floating label select example">
+				    </asp:DropDownList>
+				    <asp:SqlDataSource ID="SqlDataSource12" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT 'ALL' title UNION ALL SELECT title FROM [Animal]"></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList12" AssociatedControlId="DropDownList12" runat="server">物種類群</asp:Label>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                  <div class="form-floating">
+                                    <asp:DropDownList ID="DropDownList22" Cssclass="form-select" runat="server" DataSourceID="SqlDataSource22" DataTextField="species_Name" DataValueField="species"
+				    aria-label="Floating label select example">
+                                    </asp:DropDownList>
+				    <asp:SqlDataSource ID="SqlDataSource22" runat="server" ConnectionString="<%$ ConnectionStrings:freewayDbConnectionString %>" SelectCommand="SELECT '' AS species , 'ALL' AS species_Name  UNION ALL Select species , species_name From  Focus_Species "></asp:SqlDataSource>
+				    <asp:Label ID="lb_DropDownList22" AssociatedControlId="DropDownList22" runat="server">關注物種</asp:Label>
+                                  </div>
+                                </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+          <asp:Button ID="btn_search2" Cssclass="btn btn-secondary" PostBackUrl="searchall.aspx?q=2" runat="server" Text="搜尋" />
+        </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+                </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.搜尋Modal -->
+
+  <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server">
+  </asp:ContentPlaceHolder>
+
+  </form>
+  <!-- footer -->
+  <footer class="bg-gradient-primary text-white">
+    <div class="container py-6  d-lg-flex justify-content-lg-between">
+      <ul>
+        <li>2021 交通部高速公路局 Copyright © All Rights Reserved.
+        </li>
+        <li>建議瀏覽器：Google Chrome、Edge (Windows)、Safari、Firefox</li>
+      </ul>
+      <ul class="mt-4 mt-lg-0">
+        <li><i class="bi bi-telephone-fill pe-2"></i>總機：(02)2909-6141 </li>
+        <li><i class="bi bi-house-fill pe-2"></i>地址：24303新北市泰山區黎明里半山雅70號</li>
+      </ul>
+    </div>
+  </footer>
+  <!-- /.footer -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
+
+  <asp:ContentPlaceHolder ID="FScriptContentPlaceHolder" runat="server">
+  </asp:ContentPlaceHolder>
+</body>
+</html>

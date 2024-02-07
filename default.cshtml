@@ -1,0 +1,435 @@
+﻿@using Resources;
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "首頁";
+
+    LoginUtil.RequiredLogin();
+    
+    String role = "";
+    try{
+        if (!Session["role"].Equals("null"))
+        {
+            role = Session["role"].ToString();
+        }
+    }
+    catch (Exception ex) { 
+        System.Diagnostics.Trace.WriteLine("[ValidateUser] Exception " + ex.Message); 
+    }
+}
+
+
+
+@section featured {
+<section class="featured">
+    <div class="content-wrapper">
+        <hgroup class="title">
+            <!--<h1>@Page.Title.</h1>-->
+        </hgroup>
+    </div>
+</section>
+}
+
+
+<link href="~/Content/style1.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+
+
+<!--<div id="content_browse" style="text-align:center;border:groove;border-width:2px">-->
+<div id="content_browse" style="text-align:center;">
+    
+    <table width="900">
+        <tr>
+            <!--<td colspan="6">@Resource.ContentBrowsing</td>-->
+            <!--<td colspan="6" style="text-align:center;font-size:20px"><h3>@Resource.ContentBrowsing</h3></td>-->
+            <td colspan="2" style="text-align:Left"><img src="~/Images/frame/09.jpg" alt="分隔線">
+                
+            </td>
+            <td colspan="1" >
+                <a href="Images/sitemap.jpg" class="menu13" >網站地圖</a>
+            </td>
+        </tr>
+        <tr>
+            
+            <td><a href="View/fun01_011.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image1','','images/frame/a01a.jpg',1)"><img src="images/frame/a01.jpg"  width="134" height="138" border="0" id="Image1" title="生態調查資料" alt="生態調查資料"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun02_011a.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','images/frame/a02a.jpg',1)"><img src="images/frame/a02.jpg"  width="134" height="138" border="0" id="Image2" title="動物道路致死資料" alt="動物道路致死資料"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun03_011a.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image3','','images/frame/a03a.jpg',1)"><img src="images/frame/a03.jpg"  width="134" height="138" border="0" id="Image3" title="植栽工程資料" alt="植栽工程資料"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <!--<td><a href="View/fun04_01a.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','images/frame/a04a.jpg',1)"><img src="images/frame/a04.jpg"  width="134" height="138" border="0" id="Image4" title="入侵物種查詢" alt="入侵物種查詢"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>-->
+            <td><a href="View/fun13_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image12','','images/frame/a12a.jpg',1)"><img src="images/frame/a12.jpg"  width="134" height="138" border="0" id="Image12" title="其他生態相關工作" alt="其他生態相關工作"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun05_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image5','','images/frame/a05a.jpg',1)"><img src="images/frame/a05.jpg"  width="134" height="138" border="0" id="Image5" title="路權空間認養與使用" alt="路權空間認養與使用"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td></td>
+            
+        </tr>
+        
+        <tr>
+            <td><a href="View/fun07_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image7','','images/frame/a07a.jpg',1)"><img src="images/frame/a07.jpg"  width="134" height="138" border="0" id="Image7" title="道路致死統計資料" alt="道路致死統計資料"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun08_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image8','','images/frame/a08a.jpg',1)"><img src="images/frame/a08.jpg"  width="134" height="138" border="0" id="Image8" title="環境影響評估報告" alt="環境影響評估報告"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun09_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image9','','images/frame/a09a.jpg',1)"><img src="images/frame/a09.jpg"  width="134" height="138" border="0" id="Image9" title="生態研究報告" alt="生態研究報告"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="~/trans"            onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image10','','images/frame/a10a.jpg',1)"><img src="images/frame/a10.jpg"  width="134" height="138" border="0" id="Image10" title="里程座標轉換" alt="里程座標轉換"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td><a href="View/fun11_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image11','','images/frame/a11a.jpg',1)"><img src="images/frame/a11.jpg"  width="134" height="138" border="0" id="Image11" title="通報事件查詢" alt="通報事件查詢"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <!--<td><a href="View/fun13_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image12','','images/frame/a12a.jpg',1)"><img src="images/frame/a12.jpg"  width="134" height="138" border="0" id="Image12" title="其他生態相關工作" alt="其他生態相關工作"/></a>&nbsp;</td>-->
+
+        </tr>
+
+        <tr>
+            <td colspan="6" style="text-align:Left"><img src="~/Images/frame/07.jpg" alt="分隔線"></td>
+        </tr>
+
+    </table>
+    
+    
+    
+</div>
+<p>
+    <br style="clear:both" />
+</p>
+
+    @if (role.Equals("1") || role.Equals(""))
+    {
+    <table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image16','','images/frame/b01a.jpg',1)"><img src="images/frame/b01.jpg" name="Image16" width="143" height="58" border="0" id="Image16" alt="單筆修改"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image18','','images/frame/b02a.jpg',1)"><img src="images/frame/b02.jpg" name="Image18" width="143" height="58" border="0" id="Image18" alt="單筆新增"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image20','','images/frame/b03a.jpg',1)"><img src="images/frame/b03.jpg" name="Image20" width="143" height="58" border="0" id="Image20" alt="批次上傳" /></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="175"><a href="View/fun12_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','images/frame/b04a.jpg',1)"><img src="images/frame/b04.jpg" name="Image22" width="175" height="58" border="0" id="Image22" alt="批次上傳" /></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"><a href="Control/Userdata.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image24','','images/frame/b05a.jpg',1)"><img src="images/frame/b05.jpg" name="Image24" width="143" height="58" border="0" id="Image24" alt="系統管理"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td><a href="Control/Roadkill_bulletin_add1.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image26','','images/frame/b06a.jpg',1)"><img src="images/frame/b06.jpg" name="Image26" width="175" height="58" border="0" id="Image26" alt="受傷動物通報"/></a></td>
+          </tr>
+          <tr>
+            <td width="143">
+              <div align="center"><a href="#" class="menu12a"></a>
+              <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                <tr>
+                  <td><div align="center"><a href="Control/Occurrence_edit2.aspx" class="menu12a">生態調查資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Roadkill_edit1.aspx" class="menu12a">道路致死資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                  <!--
+                <tr>
+                  <td><div align="center"><a href="Control/Invasion_species_edit1.aspx" class="menu12a">入侵物種資料</a></div></td>
+                </tr>
+                      -->
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Plant_engineering_edit1.aspx" class="menu12a">植栽工程資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Plant_observation_edit5.aspx" class="menu12a">植栽工程物種</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_edit1.aspx" class="menu12a">環評調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Eco_report_edit1.aspx" class="menu12a">生態調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Road_status_edit1.aspx" class="menu12a">路權空間資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_Restore_edit1.aspx" class="menu12a">生態相關資料</a></div></td>
+                </tr>
+                  <tr>
+                  <td><div align="center"><a href="Control/Plants_edit1.aspx" class="menu12a">植栽調查資料</a></div></td>
+                </tr>
+
+              </table>
+            </div></td>
+            <td width="143">
+              <div align="center"><a href="#" class="menu12a"></a>
+              <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                <tr>
+                  <td><div align="center"><a href="Control/Site_add1.aspx" class="menu12a">生態調查資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Roadkill_add1.aspx" class="menu12a">道路致死資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                  <!--
+                <tr>
+                  <td><div align="center"><a href="Control/Invasion_species_add1.aspx" class="menu12a">入侵物種資料</a></div></td>
+                </tr>
+                      -->
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Plant_engineering_add1.aspx" class="menu12a">植栽工程資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_add1.aspx" class="menu12a">環評調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Eco_report_add1.aspx" class="menu12a">生態調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Road_status_add1.aspx" class="menu12a">路權空間資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_Restore_add1.aspx" class="menu12a">生態相關資料</a></div></td>
+                </tr>
+              </table>
+            </div>
+
+            </td>
+            <td width="143">
+                <table width="100%" align="center">
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Site.aspx" class="menu12a">生態調查資料</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Roadkill.aspx" class="menu12a">道路致死資料</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Plants.aspx" class="menu12a">植栽調查資料</a></div></td>
+                    </tr>
+                </table>
+            </td>
+            <td width="175">&nbsp;</td>
+            <td width="143">
+                <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                    <tr>
+                      <td><div align="center"><a href="Control/Userdata.aspx" class="menu12a">系統帳號維護</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="Control/Roadkill_Export.aspx" class="menu12a">道路致死匯出</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="View/fun07_04.aspx" class="menu12a">上傳道路致死統計</a></div></td>
+                    </tr>
+                </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+    </table>
+    }
+
+
+    @if (role.Equals("2")){
+    <table width="900" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image16','','images/frame/b01a.jpg',1)"><img src="images/frame/b01.jpg" name="Image16" width="143" height="58" border="0" id="Image16" alt="單筆修改"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image18','','images/frame/b02a.jpg',1)"><img src="images/frame/b02.jpg" name="Image18" width="143" height="58" border="0" id="Image18" alt="單筆新增"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image20','','images/frame/b03a.jpg',1)"><img src="images/frame/b03.jpg" name="Image20" width="143" height="58" border="0" id="Image20" alt="批次上傳"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="175"><a href="View/fun12_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','images/frame/b04a.jpg',1)"><img src="images/frame/b04.jpg" name="Image22" width="175" height="58" border="0" id="Image22" alt="文件下載"/></a></td>
+            <td width="1" rowspan="2" bgcolor="#999999"><img src="images/frame/00.gif" width="1" height="12" alt="分隔線"/></td>
+            <td width="143"> <a href="Control/Roadkill_bulletin_add1.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image26','','images/frame/b06a.jpg',1)"><img src="images/frame/b06.jpg" name="Image26" width="175" height="58" border="0" id="Image26" alt="受傷動物通報"/></a></td>
+          </tr>
+          <tr>
+            <td width="143">
+              <div align="center"><a href="#" class="menu12a"></a>
+              <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                <tr>
+                  <td><div align="center"><a href="Control/Occurrence_edit2.aspx" class="menu12a">生態調查資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Roadkill_edit1.aspx" class="menu12a">道路致死資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                  <!--
+                <tr>
+                  <td><div align="center"><a href="Control/Invasion_species_edit1.aspx" class="menu12a">入侵物種資料</a></div></td>
+                </tr>
+                      -->
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Plant_engineering_edit1.aspx" class="menu12a">植栽工程資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                  <tr>
+                  <td><div align="center"><a href="Control/Plant_observation_edit5.aspx" class="menu12a">植栽工程物種</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_edit1.aspx" class="menu12a">環評調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Eco_report_edit1.aspx" class="menu12a">生態調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Road_status_edit1.aspx" class="menu12a">路權空間資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_Restore_edit1.aspx" class="menu12a">生態相關資料</a></div></td>
+                </tr>
+                   <tr>
+                  <td><div align="center"><a href="Control/Plants_edit1.aspx" class="menu12a">植栽調查資料</a></div></td>
+                </tr>
+              </table>
+            </div></td>
+            <td width="143">
+              <div align="center"><a href="#" class="menu12a"></a>
+              <table width="100%" border="0" cellspacing="5" cellpadding="0">
+                <tr>
+                  <td><div align="center"><a href="Control/Site_add1.aspx" class="menu12a">生態調查資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Roadkill_add1.aspx" class="menu12a">道路致死資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                  <!--
+                <tr>
+                  <td><div align="center"><a href="Control/Invasion_species_add1.aspx" class="menu12a">入侵物種資料</a></div></td>
+                </tr>
+                      -->
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Plant_engineering_add1.aspx" class="menu12a">植栽工程資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_add1.aspx" class="menu12a">環評調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Eco_report_add1.aspx" class="menu12a">生態調查報告</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Road_status_add1.aspx" class="menu12a">路權空間資料</a></div></td>
+                </tr>
+                <tr>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><div align="center"><a href="Control/Environment_Restore_add1.aspx" class="menu12a">生態相關資料</a></div></td>
+                </tr>
+              </table>
+            </div>
+
+            </td>
+            <td width="143">
+                <table width="100%" align="center">
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Site.aspx" class="menu12a">生態調查資料</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Roadkill.aspx" class="menu12a">道路致死資料</a></div></td>
+                    </tr>
+                    <tr>
+                      <td><div align="center"><a href="Control/Batch_Upload_Plants.aspx" class="menu12a">植栽調查資料</a></div></td>
+                    </tr>
+                </table>
+            </td>
+            <td width="175">&nbsp;</td>
+            
+          </tr>
+    </table>
+    }
+
+
+
+    @if (role.Equals("3")){
+    <table width="900" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td width="175" style="text-align:left"><a href="View/fun12_01.aspx" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','images/frame/b04a.jpg',1)"><img src="images/frame/b04.jpg" name="Image22" width="175" height="58" border="0" id="Image22" alt="文件下載"/></a></td>
+        </tr>
+    </table>
+    }
+
+
+
+

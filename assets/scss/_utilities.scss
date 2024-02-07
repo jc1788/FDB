@@ -1,0 +1,87 @@
+// vue 用的css＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+[v-cloak] {
+    display: none;
+  }
+
+// 文字＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// 文字大小
+.font-size {
+    &-sm {
+        font-size: $font-size-sm; //14px
+    }
+    &-md{
+        font-size: $font-size-base; //16px
+    }
+    &-lg{
+        font-size: $font-size-lg; //20px
+    }
+}
+.text-gray-600{
+    color: $gray-600;
+}
+.latoEng{
+    font-family: 'Lato', sans-serif;
+}
+.textNumber{
+    font-size: 60px;
+    @include device-md{
+        font-size: 52px;
+    }
+}
+
+// 寬度
+.min-w120px{
+    min-width: 120px;
+}
+
+
+// 文字陰影
+.text-shadow-xs{
+    text-shadow: 0 .125rem .25rem rgba(0,0,0,0.25);
+}
+.text-shadow-sm{
+    text-shadow: 0 .125rem .25rem rgba(0,0,0,0.75);
+}
+
+// 背景＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+.bg-gradient-primary{
+    background: linear-gradient(0deg, darken($primary,10%), darken($primary,5%));
+}
+.bg-gradient-green{
+    background: linear-gradient(-45deg, $teal, $cyan);
+}
+.bg-gradient-orange{
+    background: linear-gradient(-45deg, $orange, $pink);
+}
+.bg-gradient-blue{
+    background: linear-gradient(-45deg, $blue, $purple);
+}
+
+
+
+// link style＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+.whiteLink{
+    color: $white;
+
+    background-image: linear-gradient($primary, $primary);
+    background-position: left bottom;
+    background-size: 0 2.5px;
+    background-repeat: no-repeat;
+    transition: background-size 0.15s linear;
+    &:hover{
+        background-size: 100% 2.5px;
+
+    }
+}
+// 間距系統＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+.mt12{
+    margin-top: 12px;
+}
+//tab內頁上移需要用到  page4
+.-mt-8{
+    margin-top: -8px;
+}
+// 0119修改～字體變大（後續調整ＲＷＤ跑板問題）
+.mainNav {
+    font-size: 20px;
+}

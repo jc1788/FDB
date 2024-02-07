@@ -1,0 +1,120 @@
+﻿@using FW2017.Models;
+@model List<FW2017.Models.News>
+@{
+    ViewBag.Title = "Index";
+}
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                最新消息
+                <small></small>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <!-- DATATABLE DEMO 1-->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"></div>
+                    <div class="text-sm"></div>
+                    @Html.ActionLink("新增", "Create", "News", null, new { @class = "btn btn-success btn-large" })
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped my-4 w-100" id="datatable1">
+                        <thead>
+                            <tr>
+                                <th data-priority="1">主標題</th>
+                                <th>是否顯示</th>
+                                <th>上架日期</th>
+                                <th>原文連結網址</th>
+                                <th class="sort-alpha" data-priority="2">編輯</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="gradeX">
+                                    <td> @Html.DisplayFor(modelItem => item.tittle)</td>
+                                    <td> @(item.is_show == true ? "O" : "-")</td>
+                                    <td> @Html.DisplayFor(modelItem => item.add_date)~@Html.DisplayFor(modelItem => item.remov_date)</td>
+                                    <td> @Html.DisplayFor(modelItem => item.website)</td>
+                                    <td style="text-align:center">
+                                        <a href="@Url.Action("edit", new { id=item.id })" title="編輯最新消息"><i class="fas fa-edit text-muted mr-2"></i></a>
+                                        <button name="delete-confirm" title="刪除資料" style="border: none;background-color:transparent;" class="delete-confirm" value=@item.id><i class="fas fa-trash-alt text-danger mr-2"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+@section Styles{
+    <!-- Datatables-->
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css">
+}
+<!-- =============== PAGE VENDOR SCRIPTS ===============-->
+@section Scripts{
+    <!-- Datatables-->
+    <script src="~/Content/admin/vendor/datatables.net/js/jquery.dataTables.js"></script>    
+    <script src="~/Content/admin/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.flash.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/Content/admin/vendor/jszip/dist/jszip.js"></script>
+    <script src="~/Content/admin/vendor/pdfmake/build/pdfmake.js"></script>
+    <script src="~/Content/admin/vendor/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- sweetalert-->   
+    <script src="~/Content/admin/vendor/sweetalert/dist/sweetalert.min.js"></script>    
+    <link rel="stylesheet" href="~/Content/admin/vendor/sweetalert/dist/sweetalert.css" />  
+    <script>
+
+        var res =@(Html.Raw(Json.Encode(TempData["Message"])));
+        console.log(res);
+        if (res != null) {
+            swal(res);
+        }
+
+        $('.delete-confirm').on('click', function () {
+            var postID = $(this).val();
+            console.log(postID);
+            swal({
+                title: "是否刪除資料?",
+                text: "刪除後無法復原資料!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "刪除資料",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.post("/admin/News/delete", { id: postID }, function (result) {
+                            location.reload();                            
+                        });
+                    }
+                });
+        });
+
+
+
+
+    </script>
+}

@@ -1,0 +1,24 @@
+body {
+	background: none;
+	text-decoration: none;
+	color: #000000;
+}
+H1, H2, H3, H4 {
+	color: #000000;
+}
+img {
+	border:0;
+}
+.title, #toprow, #bottom, .forms, .buttons, .hidden, #bannerimage {
+	display: none;
+}
+#content {
+	width: 100%;
+	text-decoration: none;
+	text-align: left;
+}
+#content A:link, #content A:visited, #content A:active {
+	color: #000000;
+	text-decoration: none;
+}
+.rtop,.rbottom,.artop,.arbottom{display: none}

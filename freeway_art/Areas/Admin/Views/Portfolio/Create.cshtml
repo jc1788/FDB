@@ -1,0 +1,408 @@
+﻿@using Microsoft.AspNet.Identity
+@model FW2017.Models.PortfolioData
+@{
+    ViewBag.Title = "Create";
+}
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                新增作品資料
+                <small></small>
+            </div>
+        </div>
+        <!-- START row-->
+        <div class="row">
+            <div class="col-xl-12">
+                <form method="post" data-parsley-validate="" novalidate="" enctype="multipart/form-data">
+                    <!-- START card-->
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <div class="card-title">
+                                作品資料
+                                @Html.AntiForgeryToken()
+                                <span class="required small ml-4 text-danger">* 必填欄位</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" name="editor" value="@User.Identity.GetUserName()" style="display:none">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label">是否顯示</label>
+                                <div class="col-md-10">
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" id="is_show" name="is_show" value="true">
+                                        <span></span>
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.is_show)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label">是否放置首頁</label>
+                                <div class="col-md-10">
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" id="is_homepage" name="is_homepage" value="true">
+                                        <span></span>
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.is_homepage)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">上架日期</label>
+                                    <div class="input-group date" id="datetimepicker1">
+                                        <input class="form-control" name="add_date" type="text" value=@DateTime.Now.ToString("yyyy/MM/dd") autocomplete="off">
+                                        <span class="input-group-append input-group-addon">
+                                            <span class="input-group-text fas fa-calendar-alt"></span>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.add_date)
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">下架日期</label>
+                                    <div class="input-group date" id="datetimepicker2">
+                                        <input class="form-control" name="remov_date" type="text" data-date-format="yyyy/mm/dd" autocomplete="off">
+                                        <span class="input-group-append input-group-addon">
+                                            <span class="input-group-text fas fa-calendar-alt"></span>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.remov_date)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label"><span class="text-danger">*</span>作品名稱</label>
+                                    <input class="form-control" type="text" name="portfolio_name">
+                                    @Html.ValidationMessageFor(model => model.portfolio_name, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label">作品編號（公共藝術網）</label>
+                                    <input class="form-control" type="text" name="portfolio_number">
+                                    @Html.ValidationMessageFor(model => model.portfolio_number, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label"><span class="text-danger">*</span>作品狀態</label>
+                                    <select class="form-control" name="portfolio_status">
+                                        @foreach (var item in ViewBag.status)
+                                        {
+                                            <option value=@item> @item</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.portfolio_status, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="col-form-label">分類1</label>
+                                    <select class="form-control" name="portfolio_cat1">
+                                        @foreach (var item in ViewBag.portfolio_cat1)
+                                        {
+                                            <option value=@item> @item</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="col-form-label">分類2</label>
+                                    <select class="form-control" name="portfolio_cat2">
+                                        @foreach (var item in ViewBag.portfolio_cat2)
+                                        {
+                                            <option value=@item> @item</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="col-form-label">分類3</label>
+                                    <select class="form-control" name="portfolio_cat3">
+                                        @foreach (var item in ViewBag.portfolio_cat3)
+                                        {
+                                            <option value=@item> @item</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="col-form-label">創作時間</label>
+                                    <select class="form-control" name="create_year">
+                                        @{
+                                            var nyear = DateTime.Now.Year;
+                                            for (int i = DateTime.Now.Year ; i >=DateTime.Now.Year - 30; i--)
+                                            {
+                                                <option value=@i>@i</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label class="col-form-label">創作者</label>
+                                    <input class="form-control" type="text" name="creator">
+                                    @Html.ValidationMessageFor(model => model.creator, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label">尺吋</label>
+                                    <input class="form-control" type="text" name="portfolio_size">
+                                    @Html.ValidationMessageFor(model => model.portfolio_size, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label">材質</label>
+                                    <input class="form-control" type="text" name="portfolio_made_of">
+                                    @Html.ValidationMessageFor(model => model.portfolio_made_of, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-4 mb-3">
+                                    <label class="col-form-label">設置地點</label>
+                                    <input class="form-control" type="text" name="portfolio_place">
+                                    @Html.ValidationMessageFor(model => model.portfolio_place, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">緯度</label>
+                                    <input class="form-control" type="text" id="latclicked" name="latitude">
+                                    @Html.ValidationMessageFor(model => model.latitude, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">經度</label>
+                                    <input class="form-control" type="text" id="longclicked" name="longitude">
+                                    @Html.ValidationMessageFor(model => model.longitude, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="map" style="height: 500px; border: 1px solid #AAA;"></div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">作品主圖 <span class="text-danger">(作品圖格式說明︰圖片格式需爲PEG、JPG上傳作品圖片需爲橫式，寬度需在1500以上。)</span></label>
+                                    <input class="form-control filestyle" type="file" name="ImgFile" id="imgInp">
+                                    @Html.ValidationMessageFor(model => model.ImgFile)
+                                    <br />
+                                    <img id="blah" src="#" alt="image" style="display:none" class="col-xl-4" />
+                                </div>
+                                <div class="col-md-6 mb-3"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">作品介紹（影片)(崁入Youtube網址連結)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon3">https://youtu.be/</span>
+                                        </div>
+                                        <input class="form-control" type="text" name="portfolio_vedio" aria-describedby="basic-addon3" placeholder="請輸入影片ID,例 : iuZaPGnjRdU">
+                                        @Html.ValidationMessageFor(model => model.portfolio_vedio, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">作品介紹是否放置首頁</label>
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" id="is_vedionpage" name="is_vedionpage" value="true">
+                                        <span></span>
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.is_vedionpage)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">作品說明（聲音)(mp3檔案上傳）</label>
+                                    <input class="form-control filestyle" type="file" name="mp3File">
+                                    @Html.ValidationMessageFor(model => model.mp3File, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">作品說明是否放置首頁</label>
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" id="is_mp3onpage" name="is_mp3onpage" value="true">
+                                        <span></span>
+                                    </label>
+                                    @Html.ValidationMessageFor(model => model.is_mp3onpage)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">作品說明</label>
+                                <textarea rows="10" name="portfolio_des2" class="form-control"></textarea>
+                                @Html.ValidationMessageFor(model => model.portfolio_des2)
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">策畫理念</label>
+                                <textarea rows="10" name="portfolio_des1" class="form-control"></textarea>
+                                @Html.ValidationMessageFor(model => model.portfolio_des1, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @Html.ActionLink("取消", "Index", "Portfolio", null, new { @class = "btn btn-secondary btn-large" })
+                            <button id="btn" class="btn btn-primary ml-2" type="submit">儲存</button>
+                        </div>
+                    </div>
+                    <!-- END card-->
+                </form>
+            </div>
+        </div>
+        <!-- END row-->
+    </div>
+</section>
+
+@section Scripts{
+    <!-- PARSLEY-->
+    <script src="~/Content/admin/vendor/parsleyjs/dist/parsley.js"></script>
+    <script src="~/Content/admin/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
+
+    <!-- sweetalert-->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="~/Content/sweetalert/sweet-alert.css" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#datetimepicker1').datepicker({
+                format: 'yyyy/mm/dd',
+                orientation: 'bottom',
+                startDate: '1970/01/01',
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-crosshairs',
+                    clear: 'fa fa-trash'
+                }
+            });
+
+            $('#datetimepicker2').datepicker({
+                format: 'yyyy/mm/dd',
+                orientation: 'bottom',
+                startDate: '1970/01/01',
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-crosshairs',
+                    clear: 'fa fa-trash'
+                }
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#blah').attr('src', e.target.result);
+                        $('#blah').show();
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function () {
+                readURL(this);
+                $('#blah').show();
+            });
+
+            $('#is_show').on('change', function () {
+                if ($(this).attr('checked')) {
+                    $('#is_show').val(this.checked);
+                } else {
+                    $('#is_show').val(this.checked);
+                }
+            });
+
+            $('#is_homepage').on('change', function () {
+
+                if ($(this).is(':checked')) {
+                    $('#is_homepage').val(this.checked);
+                } else {
+                    $('#is_homepage').val(this.checked);
+                }
+                console.log($('#is_homepage').val());
+            });
+
+            $('#is_vedionpage').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#is_vedionpage').val(this.checked);
+                } else {
+                    $('#is_vedionpage').val(this.checked);
+                }
+            });
+
+            $('#is_mp3onpage').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#is_mp3onpage').val(this.checked);
+                } else {
+                    $('#is_mp3onpage').val(this.checked);
+                }
+            });
+
+            var res =@(Html.Raw(Json.Encode(TempData["Message"])));
+            console.log(res);
+            if (res != null) {
+                swal(res);
+            }
+
+            var map;
+
+            map = L.map('map').setView([25.0248949, 121.5255704], 14);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '<a href="https://www.openstreetmap.org/">OSM</a>',
+                maxZoom: 18,
+            }).addTo(map);
+
+            //mouse wheel disabled
+            map.scrollWheelZoom.disable();
+
+            var marker;
+            var c = 0;
+            map.on('click', function (e) {
+                //alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+                $("#latclicked").val(e.latlng.lat);
+                $("#longclicked").val(e.latlng.lng);
+                c = c + 1;
+                if (c > 1) {
+                    deleteMarkers();
+                }
+                marker = L.marker([e.latlng.lat, e.latlng.lng]);
+                marker.addTo(map);
+            });
+
+            //移除的函式
+            function deleteMarkers() {
+                map.removeLayer(marker);
+            }
+
+            var _URL = window.URL || window.webkitURL;
+            $("#imgInp").change(function (e) {
+                var file, img;
+
+                if ((file = this.files[0])) {
+                    img = new Image();
+                    img.onload = function () {
+                        if (this.width < this.height) {
+                            $("#btn").attr('disabled', 'disabled');                         
+                            alert('請上傳橫式照片');
+                        }
+                        else {
+                            $("#btn").removeAttr('disabled');                         
+                        }
+                           
+                    };
+                    img.onerror = function () {
+                        alert("not a valid file: " + file.type);
+                    };
+                    img.src = _URL.createObjectURL(file);
+
+                }
+
+            }); 
+
+        });
+    </script>
+}

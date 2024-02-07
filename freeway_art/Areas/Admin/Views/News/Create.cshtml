@@ -1,0 +1,203 @@
+﻿@using Microsoft.AspNet.Identity
+@model FW2017.Models.News
+@{
+    ViewBag.Title = "Create";
+}
+
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                新增最新消息
+                <small></small>
+            </div>
+        </div>
+        <!-- START row-->
+        <div class="row">
+            <div class="col-xl-12">
+                <form method="post" data-parsley-validate="" novalidate="" enctype="multipart/form-data">
+                    <!-- START card-->
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <div class="card-title">
+                                最新消息
+                                @Html.AntiForgeryToken()
+                                <span class="required small ml-4 text-danger">* 必填欄位</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <input type="text" name="editor" value="@User.Identity.GetUserName()" style="display:none">
+                            <div class="form-group row">
+                                <label class="col-md-2 col-form-label">是否顯示</label>
+                                <div class="col-md-10">
+                                    <label class="switch switch-lg">
+                                        <input type="checkbox" checked="checked" id="is_show" name="is_show" value="true">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">上架日期</label>
+                                    <div class="input-group date" id="datetimepicker1">
+                                        <input class="form-control" name="add_date" type="text" value=@DateTime.Now.ToString("yyyy/MM/dd") autocomplete="off">
+                                        <span class="input-group-append input-group-addon">
+                                            <span class="input-group-text fas fa-calendar-alt"></span>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.add_date, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="col-form-label">下架日期</label>
+                                    <div class="input-group date" id="datetimepicker2">
+                                        <input class="form-control" name="remov_date" type="text" data-date-format="yyyy/mm/dd" autocomplete="off">
+                                        <span class="input-group-append input-group-addon">
+                                            <span class="input-group-text fas fa-calendar-alt"></span>
+                                        </span>
+                                        @Html.ValidationMessageFor(model => model.remov_date, null, new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><span class="text-danger">*</span>主標題</label>
+                                <input class="form-control" type="text" name="tittle">
+                                @Html.ValidationMessageFor(model => model.tittle, null, new { @class = "text-danger" })
+                            </div>
+                            @* <div class="form-group">
+                               <label class="col-form-label">副標題</label>
+                               <input class="form-control" type="text" name="subtittle">
+                               @Html.ValidationMessageFor(model => model.subtittle, null, new { @class = "text-danger" })
+                           </div>*@
+
+                            <div class="form-group">
+                                <label class="col-form-label">主圖片上傳 <span>(請勿超過600KB)</span></label>
+                                <input class="form-control" type="file" name="ImageFile" id="imgInp">
+                                @Html.ValidationMessageFor(model => model.ImageFile, null, new { @class = "text-danger" })
+                                <br />
+                                <img id="blah" src="#" alt="image" style="display:none" class="col-md-6 col-12" />
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">作品資料</label>
+                                <textarea name="portfolio" id="editor1" rows="10" cols="80">                               
+                                </textarea>
+                                @Html.ValidationMessageFor(model => model.portfolio, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">原文連結網址</label>
+                                <input class="form-control" type="text" name="website">
+                                @Html.ValidationMessageFor(model => model.website, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">資料一</label>
+                                <input class="form-control" type="file" name="news_file1">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">資料一說明</label>
+                                <input class="form-control" type="text" name="file1desc">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">資料二</label>
+                                <input class="form-control" type="file" name="news_file2">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">資料二說明</label>
+                                <input class="form-control" type="text" name="file2desc">
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            @Html.ActionLink("取消", "Index", "News", null, new { @class = "btn btn-secondary btn-large" })
+                            <button class="btn btn-success" type="submit">儲存</button>
+                        </div>
+                    </div>
+                    <!-- END card-->
+                </form>
+            </div>
+        </div>
+        <!-- END row-->
+    </div>
+</section>
+
+@section Scripts{
+    <!-- PARSLEY-->
+    <script src="~/Content/admin/vendor/parsleyjs/dist/parsley.js"></script>
+    <script src="~/Content/admin/vendor/ckeditor/ckeditor.js"></script>
+
+    <!-- sweetalert-->
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="~/Content/sweetalert/sweet-alert.css" />
+
+    <script>
+        $(document).ready(function () {
+
+            CKEDITOR.replace('editor1');
+
+            $('#datetimepicker1').datepicker({
+                format: 'yyyy/mm/dd',
+                orientation: 'bottom', 
+                startDate: '1970/01/01',
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-crosshairs',
+                    clear: 'fa fa-trash'
+                }
+            });           
+
+            $('#datetimepicker2').datepicker({
+                format: 'yyyy/mm/dd',
+                orientation: 'bottom',
+                startDate: '1970/01/01',
+                icons: {
+                    time: 'fa fa-clock-o',
+                    date: 'fa fa-calendar',
+                    up: 'fa fa-chevron-up',
+                    down: 'fa fa-chevron-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-crosshairs',
+                    clear: 'fa fa-trash'
+                }
+            });           
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#blah').attr('src', e.target.result);
+                        $('#blah').show();
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function () {
+                readURL(this);
+                $('#blah').show();
+            });
+
+            $('#is_show').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $(this).attr('value', 'true');
+                } else {
+                    $(this).attr('value', 'false');
+                }
+
+            });
+
+            var res =@(Html.Raw(Json.Encode(TempData["Message"])));
+            console.log(res);
+            if (res != null) {
+                swal(res);
+            }
+
+        });
+    </script>
+}

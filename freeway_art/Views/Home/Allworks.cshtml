@@ -1,0 +1,422 @@
+﻿
+@{
+    ViewBag.Title = "Allworks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var data = ViewBag.profile;
+}
+
+<!------------  breadcrumb  -------------->
+<div class="view">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href='@Url.Action("Index", "Home")'>首頁</a></li>
+            <li class="breadcrumb-item active"><a href='@Url.Action("Allworks", "Home", new { filter = "" })'>公共藝術作品</a></li>
+        </ol>
+    </div>
+</div>
+
+<!------------  artListBox  -------------->
+<div class="artListBox">
+
+    <div class="view">
+        <div class="navigateBox">
+            <ul class="navigate">
+                <li class="navigate__list active"><a class="navigate__link" href='@Url.Action("Allworks", "Home", new { filter = "" })'>公共藝術作品</a></li>
+                <li class="navigate__list"><a class="navigate__link" href='@Url.Action("Allworksmap", "Home")'>公共藝術地圖</a></li>
+            </ul>
+        </div>
+        <div class="tabsBox">
+            <div class="tabFilter">
+                <div class="tabFilter-inner">
+                    <a class="tabsBox__link" href='@Url.Action("Allworks", "Home")' role="button">全部</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat1" role="button">北部</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat2" role="button">中部</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat3" role="button">南部</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat4" role="button">國道1號</a>
+                    @*<a class="tabsBox__link" href="javascript:void(0)" id="cat5" role="button">國道2號</a>*@
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat6" role="button">國道3號</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat7" role="button">國道5號</a>
+                    <a class="tabsBox__link" href="javascript:void(0)" id="cat8" role="button">服務區</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="tabsWrapper">
+
+        <div id="div1" class="featureBox__card bg-light-grey">
+
+
+        </div>
+    </section>
+</div>
+
+<!------------  TOP  -------------->
+<div class="toTopBox" onclick="topFunction()">
+    <img src="~/Content/images/icon/icon_top.png" alt="to top">
+</div>
+
+<!------------  loading  -------------->
+<div class="loading">
+    <div class="loading__overlay"></div>
+    <div class="loading__wrapper">
+        <span class="circle circle-1"></span>
+        <span class="circle circle-2"></span>
+        <span class="circle circle-3"></span>
+        <span class="circle circle-4"></span>
+        <span class="circle circle-5"></span>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="~/Content/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/lazyload.min.js"></script>
+<script type="text/javascript" src="~/Content/js/slick.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+<script type="text/javascript">
+
+    var header = $('header').outerHeight();
+    var tabOffset = $(".artListBox .tabsBox").offset().top;
+    var tabsWrapper = $('.tabsWrapper').offset().top;
+
+
+    (function ($) {
+
+        //scroll fixed
+        filterScroll();
+        $(window).scroll(function () {
+            filterScroll();
+        });
+
+        var array = @(Html.Raw(Json.Encode(@ViewBag.profile)));
+        var newHTML = [];
+        getworks(0);
+
+        $("img").one("load", function () {
+            // do stuff
+        }).each(function () {
+            if (this.complete) {
+                $('.loading').fadeOut(3000);
+            }
+        });       
+
+        $('#cat1').on("click", function () {
+            getworks(1);
+        })
+
+        $('#cat2').on("click", function () {
+            getworks(2);
+        })
+
+        $('#cat3').on("click", function () {
+            getworks(3);
+        })
+
+        $('#cat4').on("click", function () {
+            getworks(4);
+        })
+
+        $('#cat5').on("click", function () {
+            getworks(5);
+        })
+
+        $('#cat6').on("click", function () {
+            getworks(6);
+        })
+
+        $('#cat7').on("click", function () {
+            getworks(7);
+        })
+
+        $('#cat8').on("click", function () {
+            getworks(8);
+        })
+
+        var $filters = $('.tabsBox__link');
+        var $boxes = $('.tabsWrapper [data-color]');
+
+        $filters.on('click', function (e) {
+          //  e.preventDefault();
+            var $this = $(this);
+            console.log($this);
+            $filters.removeClass('active');
+            $this.addClass('active');
+        });
+
+        function getworks(item) {
+
+            switch (item) {
+                case 1:
+                   var newarray = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat1)=='北部';
+                    });
+
+                    console.log('newarray:',newarray);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray.length; i++) {
+
+                        var img;
+                        if (newarray[i].portfolio_Img != null) {
+                            img = newarray[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat1">' +
+                            '<a href="../Home/Detail/' + newarray[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img + '></span></div></div>');
+                    }
+
+                    $(".featureBox__card").html(newHTML.join(""));
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat1"]')
+                                .addClass('is-animated').fadeIn();
+                        });                  
+
+                    break;
+                case 2:
+                    var newarray2 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat1) == '中部';
+                    });
+                    console.log('newarray2:',newarray2);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray2.length; i++) {
+
+                        var img2;
+                        if (newarray2[i].portfolio_Img != null) {
+                            img2 = newarray2[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat2">' +
+                            '<a href="../Home/Detail/' + newarray2[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray2[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img2 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat2"]')
+                                .addClass('is-animated').fadeIn();
+                        });                  
+                    break;
+                case 3:
+                    var newarray3 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat1) == '南部';
+                    });
+                    console.log('newarray3:',newarray3);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray3.length; i++) {
+
+                        var img3;
+                        if (newarray3[i].portfolio_Img != null) {
+                            img3 = newarray3[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat3">' +
+                            '<a href="../Home/Detail/' + newarray3[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray3[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img3 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat3"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                case 4:
+                    var newarray4 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat2) == '國道1號';
+                    });
+                    console.log('newarray4:',newarray4);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray4.length; i++) {
+
+                        var img4;
+                        if (newarray4[i].portfolio_Img != null) {
+                            img4 = newarray4[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat4">' +
+                            '<a href="../Home/Detail/' + newarray4[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray4[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img4 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat4"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                case 5:
+                    var newarray5 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat2) == '國道2號';
+                    });
+                    console.log('newarray5:',newarray5);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray5.length; i++) {
+
+                        var img5;
+                        if (newarray5[i].portfolio_Img != null) {
+                            img5 = newarray5[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat5">' +
+                            '<a href="../Home/Detail/' + newarray5[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray5[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img5 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat5"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                case 6:
+                    var newarray6 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat2) == '國道3號';
+                    });
+                    console.log('newarray6:',newarray6);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray6.length; i++) {
+
+                        var img6;
+                        if (newarray6[i].portfolio_Img != null) {
+                            img6 = newarray6[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat6">' +
+                            '<a href="../Home/Detail/' + newarray6[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray6[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img6 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat6"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                case 7:
+                    var newarray7 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat2) == '國道5號';
+                    });
+                    console.log('newarray7:',newarray7);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray7.length; i++) {
+
+                        var img7;
+                        if (newarray7[i].portfolio_Img != null) {
+                            img7 = newarray7[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat7">' +
+                            '<a href="../Home/Detail/' + newarray7[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray7[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img7 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat7"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                case 8:
+                    var newarray8 = array.filter(function (item, index, array) {
+                        return $.trim(item.portfolio_cat3) == '服務區';
+                    });
+                    console.log('newarray8:',newarray8);
+                    newHTML = [];
+                    $("#div1").empty();
+
+                    for (var i = 0; i < newarray8.length; i++) {
+
+                        var img8;
+                        if (array[i].portfolio_Img != null) {
+                            img8 = newarray8[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="cat8">' +
+                            '<a href="../Home/Detail/' + newarray8[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + newarray8[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img src=' + img8 + '></span></div></div>');
+                    }
+                    $(".featureBox__card").html(newHTML.join(""));
+
+                    $boxes.removeClass('is-animated')
+                        .fadeOut().promise().done(function () {
+                            $boxes.filter('[data-color = "cat8"]')
+                                .addClass('is-animated').fadeIn();
+                        });
+                    break;
+                default:
+                    for (var i = 0; i < array.length; i++) {
+
+                        var img;
+                        if (array[i].portfolio_Img != null) {
+                            img = array[i].portfolio_Img.replace("~", "../");
+                        }
+
+                        newHTML.push('<div class="featureBox__card__item is-animated" data-color="red">' +
+                            '<a href="../Home/Detail/' + array[i].id + '"></a>' +
+                            '<div class="featureBox__card__item__ttl"><span>' + array[i].portfolio_name + '</span></div>' +
+                            '<div class="featureBox__card__item__img"><span class="img">' +
+                            '<img class="featureBox_img"  src=' + img + '></span></div></div>');
+                    }
+
+                    $(".featureBox__card").html(newHTML.join(""));                                      
+                   
+            }
+
+        }
+
+    })($);
+
+    function filterScroll() {
+        var thisScorll = $(window).scrollTop();
+        var tabsWrapperH = $('.tabsWrapper').outerHeight();
+        console.log(thisScorll + header, tabOffset, tabsWrapper + tabsWrapperH)
+        if (thisScorll + header > tabOffset && thisScorll + header < tabsWrapper + tabsWrapperH) {
+            $('.artListBox .tabFilter').addClass('fixed')
+        }
+        else {
+            $('.artListBox .tabFilter').removeClass('fixed')
+        }
+    };
+
+   
+</script>

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Taiwan Custom Layer</title>
+    <link href="default.css" rel="stylesheet">
+    <!--  
+<script src="http://maps.google.com/maps?file=api&v=2&ie=UTF8&key=ABQIAAAAzjW1O_wkawVwnMO0-rntlBRpRT8FtjwKg-BTPYMrjXXEA8pM7BSQNo7p5Rb8L9a32pgKQ7-WT4ANJA"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&ie=UTF8&key=AIzaSyB6pruMScUWXNnNry8DSPfgMuulnXBI3Aw"></script>
+
+    <script>
+    var map;
+    var urls= {
+      'forest': {link:'https://dl.dropboxusercontent.com/u/153789/maps/kmz/forest.kmz'},
+      'interchange': {link:'https://dl.dropboxusercontent.com/u/153789/maps/kmz/interchange.kmz'},
+      'tollstations': {link:'https://dl.dropboxusercontent.com/u/153789/maps/kmz/tollstations.kmz'},
+      'tunnel': {link:'https://dl.dropboxusercontent.com/u/153789/maps/kmz/tunnel.kmz'}
+    };
+
+    //,'green': {link:'https://dl.dropboxusercontent.com/u/153789/maps/green.kml'}
+
+      function initialize() {
+
+        var mapcenter = new google.maps.LatLng(23.16032, 120.349228);
+        var mapOptions = {
+          zoom: 8,
+          center: mapcenter,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+          //下面的座標可以換成要顯示的座標位置
+		  var myLatLng = new google.maps.LatLng(23.17, 120.35);
+          var beachMarker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+          });
+		  
+		  //下面的字串換成點了地圖後的 marker後顯示的文字
+		  var infowindow = new google.maps.InfoWindow({
+          content:"Hello World!"});
+          
+		  google.maps.event.addListener(beachMarker, 'click', function() {
+          infowindow.open(map,beachMarker);
+          });
+		 
+      }
+      // @
+      function toggleKMLs(checked, id){
+
+        var _id = (typeof id == 'undefined'? '' : id);
+        
+        if(checked) {
+           console.log('call addLayers '+ id);
+           if(urls[_id]['link'].length >0 ) {
+           var layer= new google.maps.KmlLayer({
+                    url: urls[_id]['link']
+           }); 
+           //layer.setMap(map);
+           urls[_id].obj = layer;
+           urls[_id].obj.setMap(map);
+           //console.log(urlsary[_id].obj)
+           }
+        }else {
+          console.log('remove layers '+ id);
+         if(urls[_id]['link'].length >0 ) {
+              
+            urls[_id].obj.setMap(null);
+            console.log('did to remove');
+          
+          }
+        }
+        return true;
+      }
+
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+    <div class="gmnoprint" style="z-index: 0; position: absolute; right: 7px; top: 34px;">
+      <div style="color: rgb(0, 0, 204); background-color: white;" >
+      forest Layer<input type="checkbox" id="forest" onchange="toggleKMLs(this.checked,this.id);;return false;"><br>
+       交流道 Layer<input type="checkbox" id="interchange" onchange="toggleKMLs(this.checked,this.id);;return false;"><br>
+       
+       收費站 Layer<input type="checkbox" id="tollstations" onchange="toggleKMLs(this.checked,this.id);;return false;"><br>
+       隧道 Layer<input type="checkbox" id="tunnel" onchange="toggleKMLs(this.checked,this.id);;return false;">
+    </div>
+      <!-- 
+      green Layer<input type="checkbox" id="green" onchange="toggleKMLs(this.checked,this.id);;return false;"><br>
+      <div style="color: rgb(0, 0, 204); background-color: white; font-style: normal; font-variant: normal; font-weight: normal; font-size: small; line-height: normal; font-family: Arial; border: 1px solid black; padding: 2px; margin-bottom: 3px; text-align: center; width: 6em; cursor: pointer;">顯示/隱藏森林圖層</div> -->
+
+    </div>
+    
+  </body>
+</html>

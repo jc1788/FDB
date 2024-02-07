@@ -1,0 +1,180 @@
+﻿@using Microsoft.AspNet.Identity
+@model FW2017.Models.News
+@{
+    ViewBag.Title = "NewsDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var data = ViewBag.news;
+}
+
+
+<!------------  breadcrumb  -------------->
+<div class="view">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href='@Url.Action("Index", "Home")'>首頁</a></li>
+            <li class="breadcrumb-item"><a href='@Url.Action("NewsDetail", "Home")'>最新消息</a></li>
+        </ol>
+    </div>
+</div>
+
+<!------------  articleBox  -------------->
+<div class="articleBox">
+    <div class="bg-line"></div>
+    <h1 class="articleBox__topbar">@data.tittle</h1>
+    <div class="view-border">
+        <div class="view">
+            <div class="articleBox__news__img">
+                <img src="@Url.Content(data.newsImg)" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------  shared button  -------------->
+<div class="sharedBtnBox">
+    <div class="bg-line"></div>
+    <div class="view-border">
+        <div class="view">
+            <div id="fb-root"></div>
+            <!-- Your share button code -->
+            <button class="btn btn-empty btn-hover-line">
+                <span class="txt">share to facebook</span><span class="hover-line horizon"></span>
+                <div class="fb-share-button"
+                     data-href="@Request.Url.AbsoluteUri"
+                     data-layout="button_count">
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!------------  artDetailBox  -------------->
+<div class="artDetailBox starter">
+    <div class="view-border">
+        <div class="view">           
+            <div class="artDetailBox__item">
+                <div class="artDetailBox__item__cont">
+                    @Html.Raw(data.portfolio.Replace("\r\n", "<br />"))
+                </div>
+                <div>
+                    <div class="artDetailBox__item">
+                        <div class="artDetailBox__item__ttl">資料來源</div>
+                        <div class="artDetailBox__item__cont">
+                            <div class="para">
+                                @if (data.website != null)
+                                {
+                                    <a href=@Model.website>@Model.website</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="artDetailBox__item">
+                        <div class="artDetailBox__item__ttl">資料下載</div>
+                        <div class="artDetailBox__item__cont">
+                            <div class="para">
+                                @if (data.newsfile1 != null && data.file1desc != null)
+                                {
+                                    @Html.ActionLink(@Model.file1desc, "DownloadFile", "Home", new { file = @Model.newsfile1 }, new { id = "newsfile1" })
+
+                                }
+                                <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                                @if (data.newsfile2 != null && data.file2desc != null)
+                                {
+                                    @Html.ActionLink(@Model.file2desc, "DownloadFile", "Home", new { file = @Model.newsfile2 }, new { id = "newsfile2" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="content__break"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!------------  pagination  -------------
+<div class="pageChangeBox" style="border-top: none;">
+    <ul class="pageChange">
+        <li class="page-item page-prev disabled">
+            <a class="page-link" href="">
+                <span class="txt">時空行旅─大地脈動</span>
+                <span class="icon"><img src="Content/images/icon/icon_arow.png" alt=""></span>
+            </a>
+        </li>
+        <li class="page-item page-next">
+            <a class="page-link" href="">
+                <span class="icon"><img src="Content/images/icon/icon_arow.png" alt=""></span>
+                <span class="txt">安安的奇幻樂園─電字數最大寬</span>
+            </a>
+        </li>
+    </ul>
+</div>
+    ->
+<!------------  TOP  -------------->
+<div class="toTopBox" onclick="topFunction()">
+    <img src="~/Content/images/icon/icon_top.png" alt="to top">
+</div>
+
+
+<script type="text/javascript" src="~/Content/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/lazyload.min.js"></script>
+<script type="text/javascript" src="~/Content/js/slick.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.fancybox.min.js"></script>
+
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+<script type="text/javascript">
+    (function ($) {
+
+        $(".fancybox").fancybox();
+
+        $slickGroup = false;
+        slickGroup();
+
+
+    })($);
+    $(window).on('resize', function () {
+        slickGroup();
+    });
+
+
+    function slickGroup() {
+        var mq = window.matchMedia("(min-width: 767px)");
+        console.log('resize')
+        if (mq.matches) {
+            if (!$slickGroup) {
+                $('.slider-for').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    fade: true,
+                    arrows: false,
+                    asNavFor: '.slider-nav'
+                });
+                $('.slider-nav').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    asNavFor: '.slider-for',
+                    vertical: true,
+                    focusOnSelect: true
+                    //verticalSwiping: true
+                });
+                $slickGroup = true;
+            }
+        } else {
+            if ($slickGroup) {
+                $('.slider-for').slick('unslick');
+                $('.slider-nav').slick('unslick');
+                $slickGroup = false;
+            }
+        }
+    }
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+

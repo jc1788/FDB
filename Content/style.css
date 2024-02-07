@@ -1,0 +1,246 @@
+body  {
+	font: 70% 細明體, 新細明體;
+	background: #FFFFFF;
+	margin: 0; /* 比較好的做法是將 Body 元素的邊界與欄位間隔調整為零，以處理不同的瀏覽器預設值 */
+	padding: 0;
+	text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
+	color: #000000;
+}
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	color: #555;
+	line-height: 170%;
+}
+.thrColFixHdr #container {
+	width: 1000px;  /* 使用比完整 800px 少 20px 的寬度會允許使用瀏覽器邊框並且避免水平捲軸出現 */
+	background: #FFFFFF;
+	margin: 7px auto; /* 自動邊界 (搭配寬度) 會讓頁面置中對齊 */
+	border: 1px solid #d0cfcb;
+	text-align: left; /* 這樣做會覆寫 Body 元素上的 text-align: center。 */
+}
+.thrColFixHdr #header { 
+	background: #FFFFFF; 
+	padding: 0 3px 0 3px;  /* 這個欄位間隔符合下面顯示的 Div 中，元素的靠左對齊。如果在 #header 中使用影像而非文字，您可能會想要移除欄位間隔。 */
+	position: relative;
+}
+.bodysearch {
+	text-align: right;
+	position: absolute;
+	left: 757px;
+	top: 47px;
+}
+.text1 {
+	border: 1px solid #e6e2de; /* 指定上下左右框線各為1px */
+	width: 200px; /* 指定寬度 */
+	height: 22px;
+}
+.thrColFixHdr #sidebar1 {
+	float: left; /* 因為這個元素是浮動元素，所以您必須指定寬度 */
+	width: 200px; /* 在符合標準的瀏覽器或 Internet Explorer 的標準模式中，這個 Div 的實際寬度 (除了寬度以外) 將會包含欄位間隔和邊框 */
+	background: #FFFFFF; /* 背景顏色將會針對欄的內容長度而顯示，但僅止於此 */
+	padding: 15px 10px 15px 10px; /* 欄位間隔會讓 Div 的內容遠離邊緣 */
+	margin-left: 18px;
+}
+.thrColFixHdr #sidebar2 {
+	float: right; /* 因為這個元素是浮動元素，所以您必須指定寬度 */
+	width: 200px; /* 在符合標準的瀏覽器或 Internet Explorer 的標準模式中，這個 Div 的實際寬度 (除了寬度以外) 將會包含欄位間隔和邊框 */
+	background: #FFFFFF; /* 背景顏色將會針對欄的內容長度而顯示，但僅止於此 */
+	padding: 15px 25px 15px 25px; /* 欄位間隔會讓 Div 的內容遠離邊緣 */
+}
+.thrColFixHdr #sidebar3 {
+	float: right; /* 因為這個元素是浮動元素，所以您必須指定寬度 */
+	width: 200px; /* 在符合標準的瀏覽器或 Internet Explorer 的標準模式中，這個 Div 的實際寬度 (除了寬度以外) 將會包含欄位間隔和邊框 */
+	background: #FFFFFF; /* 背景顏色將會針對欄的內容長度而顯示，但僅止於此 */
+	padding: 15px 30px 15px 25px; /* 欄位間隔會讓 Div 的內容遠離邊緣 */
+}
+.thrColFixHdr #map {
+	float: left; /* 因為這個元素是浮動元素，所以您必須指定寬度 */
+   height: 500px;
+   width: 650px; /* 在符合標準的瀏覽器或 Internet Explorer 的標準模式中，這個 Div 的實際寬度 (除了寬度以外) 將會包含欄位間隔和邊框 */
+	background: #FFFFFF; /* 背景顏色將會針對欄的內容長度而顯示，但僅止於此 */
+	padding: 0px 0px 0px 0px; /* 欄位間隔會讓 Div 的內容遠離邊緣 */
+}
+.sidebartext1 {
+	padding: 0 8px;
+	width: 159px;
+	vertical-align:top
+}
+.sidebartext2 {
+	padding: 0 8px;
+	width: 200px;
+}
+.thrColFixHdr #footer {
+	padding: 0 3px 0 3px; /* 這個欄位間隔符合上面顯示的 Div 中，元素的靠左對齊。 */
+	background:#FFFFFF;
+	position: relative;
+}
+.thrColFixHdr #footer p {
+	margin: 0; /* 將頁尾中第一個元素的邊界調整為零可避免邊界收合的可能性 (Div 之間出現的空間) */
+	padding: 10px 0; /* 這個元素的欄位間隔將會建立空間，就如同邊界一樣，但是沒有邊界收合的問題 */
+}
+.footerlink {
+	text-align: left;
+	position: absolute;
+	left: 20px;
+	top:  0px;
+}
+.footertext {
+	text-align: left;
+	position: absolute;
+	left: 25px;
+	top:  35px;
+}
+.fltrt { /* 這個類別可用來讓頁面右邊的元素浮動。浮動元素必須位於頁面上必須相鄰的元素前面。 */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* 這個類別可用來讓頁面左邊的元素浮動 */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* 這個類別應該放置於 Div 或 Break 元素上，而且應該是完整包含浮動的容器關閉前的最後一個元素 */
+    clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+.h1 {
+	font-size: 100%;
+	margin-bottom: 10px;
+	color: #FFFFFF;
+	line-height: 200%;
+	font-weight: bolder;
+}
+.h1 a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.h1 a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+.h1 a:hover {
+	text-decoration: none;
+	color: #E60012;
+}
+.h1 a:active {
+	text-decoration: none;
+}
+.h2 {
+	font-size: 90%;
+	color: #D4E4F4;
+	line-height: 150%;
+}
+.down {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	line-height: 170%;
+}
+.down a:link {
+	text-decoration: none;
+	color: #0066cc;
+}
+.down a:visited {
+	text-decoration: none;
+	color: #0066cc;
+}
+.down a:hover {
+	text-decoration: none;
+	color: #E60012;
+}
+.down a:active {
+	text-decoration: none;
+}
+.login {
+	font-family: "arial, 新細明體";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	
+}
+.content {
+    color: #555;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    line-height: 18px;
+
+}
+.content a {
+    color: #555;
+	font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+	text-decoration: none;
+}
+.content a:link {
+    color: #555;
+	font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    text-decoration: none;
+}
+.content a:active {
+    color: #555;
+	font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    text-decoration: none;
+}
+.content a:visited {
+    color: #555;
+	font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    text-decoration: none;
+}
+.content a:hover {
+    color: #F26521;
+	font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 10pt;
+    text-decoration: none;
+}
+fieldset {
+padding:10px;
+margin:10px;
+color:#333; 
+}
+
+.note {
+    color: #555;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt;   
+}
+.note2 {
+    color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt;   
+}
+.note2 a {
+     color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt; 
+	text-decoration: none;
+}
+.note2 a:link {
+    color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt; 
+    text-decoration: none;
+}
+.note2 a:active {
+     color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt; 
+    text-decoration: none;
+}
+.note2 a:visited {
+     color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt; 
+    text-decoration: none;
+}
+.note2 a:hover {
+     color: #ff0000;
+    font-family: "新細明體",Arial,Helvetica,sans-serif;
+    font-size: 9pt; 
+    text-decoration: none;
+}

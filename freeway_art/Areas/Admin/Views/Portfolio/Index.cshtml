@@ -1,0 +1,168 @@
+﻿@using FW2017.Models;
+@model List<FW2017.Models.PortfolioData>
+@{
+    ViewBag.Title = "Index";
+}
+<section class="section-container">
+    <!-- Page content-->
+    <div class="content-wrapper">
+        <div class="content-heading">
+            <div>
+                作品資料
+                <small></small>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <!-- DATATABLE DEMO 1-->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="text-sm"></div>
+                        @Html.ActionLink("新增", "Create", "Portfolio", null, new { @class = "btn btn-success btn-large" })
+                        <button type="button" id="btnsort" class="btn btn-warning float-right">儲存排序</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped my-4 w-100" id="datatable11">
+                            <thead>
+                                <tr>
+                                    <th>編號</th>
+                                    <th>作品名稱</th>
+                                    <th>是否顯示</th>
+                                    <th>是否顯示首頁</th>
+                                    <th>是否顯示mp3</th>
+                                    <th>是否顯示影片</th>
+                                    <th class="sort-alpha" data-priority="2">編輯資料</th>
+                                    <th class="sort-alpha" data-priority="2">編輯圖片</th>
+                                    <th class="sort-alpha" data-priority="2">編輯維護資料</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sortable" class="sortable">
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="gradeX" id=@item.id>
+                                        <td> @(item.profolio_sort)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.portfolio_name)</td>
+                                        <td> @(item.is_show == true ? "O" : "-")</td>
+                                        <td> @(item.is_homepage == true ? "O" : "-")</td>
+                                        <td> @(item.is_mp3onpage == true ? "O" : "-")</td>
+                                        <td> @(item.is_vedionpage == true ? "O" : "-")</td>
+                                        <td style="text-align:center">
+                                            <a href="@Url.Action("edit", new { id=item.id })" title="編輯資料"><i class="fas fa-edit text-muted mr-2"></i></a>
+                                            <button name="delete-confirm" style="border: none;background-color:transparent;" class="delete-confirm" title="編輯資料" value=@item.id><i class="fas fa-trash-alt text-danger mr-2"></i></button>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("CreateFile", new { id = item.id })" title="編輯圖片"><i class="far fa-file-image text-muted mr-2"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("CreateFile2", new { id = item.id })" title="編輯維護資料"><i class="fas fa-folder text-muted mr-2"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Styles{
+    <!-- Datatables-->
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+    <link rel="stylesheet" href="~/Content/admin/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css">
+
+}
+<!-- =============== PAGE VENDOR SCRIPTS ===============-->
+@section Scripts{
+    <!-- Datatables-->
+    <script src="~/Content/admin/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/Content/admin/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/Content/admin/vendor/jszip/dist/jszip.js"></script>
+    <!--
+    <script src="~/Content/admin/vendor/pdfmake/build/pdfmake.js"></script>
+    <script src="~/Content/admin/vendor/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- sweetalert-->
+    <script src="~/Content/admin/vendor/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="~/Content/admin/vendor/sweetalert/dist/sweetalert.css" />
+
+    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
+    <script src="~/Content/admin/vendor/html5sortable/dist/html.sortable.js"></script>
+
+
+    <script>
+
+        $('#datatable11').DataTable({
+            'paging': true, // Table pagination
+            'ordering': true, // Column ordering
+            'info': true, // Bottom left status text   
+            "pageLength": 50,
+            responsive: true,
+            // Text translation options
+            // Note the required keywords between underscores (e.g _MENU_)
+            oLanguage: {
+                sSearch: '<em class="fas fa-search"></em>',
+                sLengthMenu: '_MENU_ 單頁筆數',
+                info: 'Showing page _PAGE_ of _PAGES_',
+                zeroRecords: 'Nothing found - sorry',
+                infoEmpty: 'No records available',
+                infoFiltered: '(filtered from _MAX_ total records)',
+                oPaginate: {
+                    sNext: '<em class="fa fa-caret-right"></em>',
+                    sPrevious: '<em class="fa fa-caret-left"></em>'
+                }
+            }
+        });       
+
+        var res =@(Html.Raw(Json.Encode(TempData["Message"])));
+        console.log(res);
+
+        if (res != null) {
+            swal(res);
+        }
+
+        $("#btnsort").click(function () {
+            var arr = [];
+            $("#sortable tr").each(function () {
+                arr.push(this.id);
+            });
+            console.log(arr);
+            $.post("/admin/Portfolio/changeOrder", { ids: arr }, function (result) {
+                swal("排序儲存成功");
+            });
+        });
+
+        $('.delete-confirm').on('click', function () {
+            var postID = $(this).val();
+            console.log(postID);
+            swal({
+                title: "是否刪除資料?",
+                text: "刪除後無法復原資料!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "刪除資料",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.post("/admin/Portfolio/delete", { id: postID }, function (result) {
+                            location.reload();
+                        });
+                    }
+                });
+        });
+
+    </script>
+}

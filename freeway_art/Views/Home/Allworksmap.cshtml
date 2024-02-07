@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Allworksmap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!------------  breadcrumb  -------------->
+<div class="view">
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">@Html.ActionLink("首頁", "Index", "home", null, new { @class = "" })</li>
+            <li class="breadcrumb-item active"><a href='@Url.Action("Allworks", "Home", new { filter = "" })'>公共藝術作品</a></li>
+        </ol>
+    </div>
+</div>
+
+<!------------  artListBox  -------------->
+<div class="artListBox map-list-box">
+    <div class="view">
+        <div class="navigateBox">
+            <ul class="navigate">
+                <li class="navigate__list"><a class="navigate__link" href='@Url.Action("Allworks", "Home", new { filter = "" })'>公共藝術作品</a></li>
+                <li class="navigate__list active"><a class="navigate__link" href='@Url.Action("Allworksmap", "Home")'>公共藝術地圖</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="tabsWrapper">
+        <div class="mapBox">
+            <div id="map"></div>
+        </div>
+    </section>
+</div>
+
+<!------------  TOP  -------------->
+<div class="toTopBox" onclick="topFunction()">
+    <img src="~/Content/images/icon/icon_top.png" alt="to top">
+</div>
+
+
+
+<script type="text/javascript" src="~/Content/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/lazyload.min.js"></script>
+<script type="text/javascript" src="~/Content/js/slick.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+<script type="text/javascript">
+    (function ($) {
+
+        var locations = @Html.Raw(Json.Encode(ViewBag.profile)); ;
+        //map initial
+        var lat, lng, marker;
+
+        var map = L.map('map').setView([24.9057307, 122.7274725], 7);
+        //mouse wheel disabled
+        map.scrollWheelZoom.disable();
+        //custom marker        
+        var greenIcon = L.icon({
+            iconUrl: '../../Content/images/icon/icon_marker.png',
+            iconSize: [27, 40], // size of the icon
+        });
+        var selectedIcon = L.icon({
+            iconUrl: '../../Content/images/icon/icon_marker_active.png',
+            iconSize: [27, 40], // size of the icon
+        });
+        
+        //copy right text
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        for (var i = 0; i < locations.length; i++) {
+
+            id = locations[i].id;
+            lat = locations[i].latitude;
+            lng = locations[i].longitude;
+            ttl = locations[i].portfolio_name;
+            author = locations[i].creator;
+            add = locations[i].portfolio_place;
+            img = locations[i].portfolio_Img;
+            var res = "";
+            if (img!=null) {
+                res = img.replace("~", "../");
+            }
+
+            marker = new L.marker([lat, lng], {icon: greenIcon, id: i}).addTo(map)
+                .bindPopup('<div class="mapPanel"><a class="mapPanel__link" href="/home/Detail/'+id+'"></a><div class= "mapPanel__txt"><div class="ttl">' + ttl + '</div><div class="author">作者/' + author + '</div><div class="add">地點/' + add + '</div></div><div class="mapPanel__photo"><img src="' + res +'" alt=""></div></div>');
+
+
+            var theMarker = {};
+            marker.on('click', function(e) {
+                console.log(e.target._latlng.lat, e.target._latlng.lng)
+                if(theMarker != undefined){
+                    map.removeLayer(theMarker);
+                }
+                theMarker = L.marker([e.target._latlng.lat, e.target._latlng.lng], { icon: selectedIcon }).addTo(map);
+            });
+
+        }
+        
+
+
+    })($);
+</script>

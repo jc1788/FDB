@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNet.Identity
+<nav class="sidebar" data-sidebar-anyclick-close="">
+    <!-- START sidebar nav-->
+    <ul class="sidebar-nav">
+        <!-- START user info-->
+        <li class="has-user-block">
+            <div class="collapse" id="user-block">
+                <div class="item user-block">
+                    <!-- User picture-->
+                    <div class="user-block-picture">
+                        <div class="user-block-status">
+                            <!-- <img class="img-thumbnail rounded-circle" src="" alt="Avatar" width="60" height="60">
+                            <div class="circle bg-success circle-lg"></div>-->
+                        </div>
+                    </div>
+                    <!-- Name and Job-->
+                    <div class="user-block-info">
+                        @{ string[] username = @User.Identity.GetUserName().Split('@');
+                            <span class="user-block-name">Hello,@username[0]</span>
+                        }
+                        <span class="user-block-role"></span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <!-- END user info-->
+        <!-- Iterates over all sidebar items-->
+        <li class="nav-heading ">
+            <span data-localize="sidebar.heading.HEADER">公共藝術網管理系統</span>
+        </li>
+        @*
+                <li class="">
+                    <a href="#dashboard" title="Dashboard" data-toggle="collapse">
+                        <div class="float-right badge badge-success">3</div>
+                        <em class="icon-speedometer"></em>
+                        <span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+                        <li class="sidebar-subnav-header">Dashboard</li>
+                        <li class=" active">
+                            <a href="dashboard.html" title="Dashboard v1">
+                                <span>Dashboard v1</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="dashboard_v2.html" title="Dashboard v2">
+                                <span>Dashboard v2</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="dashboard_v3.html" title="Dashboard v3">
+                                <span>Dashboard v3</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="widgets.html" title="Widgets">
+                        <div class="float-right badge badge-success">30</div>
+                        <em class="icon-grid"></em>
+                        <span data-localize="sidebar.nav.WIDGETS">Widgets</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="#layout" title="Layouts" data-toggle="collapse">
+                        <em class="icon-layers"></em>
+                        <span>Layouts</span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-subnav collapse" id="layout">
+                        <li class="sidebar-subnav-header">Layouts</li>
+                        <li class=" ">
+                            <a href="dashboard_h.html" title="Horizontal">
+                                <span>Horizontal</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            <li class="">
+                <a href="@Url.Action("Index", "Home")" title="Widgets">
+                    <em class="icon-grid"></em>
+                    <span data-localize="sidebar.nav.WIDGETS">首頁</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="@Url.Action("Table", "Home")" title="Widgets">
+                    <em class="icon-grid"></em>
+                    <span data-localize="sidebar.nav.WIDGETS">Table</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="@Url.Action("Form", "Home")" title="Widgets">
+                    <em class="icon-grid"></em>
+                    <span data-localize="sidebar.nav.WIDGETS">Form</span>
+                </a>
+            </li>
+        *@
+        <li class="">
+            <a href="@Url.Action("Index", "News")" title="Widgets">
+                <em class="icon-grid"></em>
+                <span data-localize="sidebar.nav.WIDGETS">最新消息</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="@Url.Action("Index", "Portfolio")" title="Widgets">
+                <em class="icon-grid"></em>
+                <span data-localize="sidebar.nav.WIDGETS">作品資料</span>
+            </a>
+        </li>
+        <li class="nav-heading ">
+            <span data-localize="sidebar.heading.COMPONENTS"></span>
+        </li>
+    </ul>
+    <!-- END sidebar nav-->
+</nav>

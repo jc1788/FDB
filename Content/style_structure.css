@@ -1,0 +1,172 @@
+﻿/****************************
+  Structure
+  __________________________
+  
+	  01 Header
+	  02 Navigation
+	  03 Container
+	  04 Footer
+	  
+*******************************/
+html, body {height: 100%;}
+
+
+.w980 {
+	margin:0 auto;
+	width:980px;
+	position:relative;
+	/* z-index:1;*/
+}
+
+.w1000 {
+	margin:0 auto;
+	width:1000px;
+	position:relative;
+	/* z-index:1;*/
+} 
+
+.w1044 {
+	margin:0 auto;
+	width:1044px;
+	position:relative;
+	/* z-index:1;*/
+} 
+
+.zindex1 {
+	z-index:1;
+}
+
+
+#wrap {
+	min-height: 100%;
+	margin:0 auto;
+	width:100%;
+	margin-top: -12px; /**on PHP**/
+}
+
+
+#header > .wrap,
+#container > .wrap,
+footer > .wrap {
+	margin:0 auto;
+	width:980px;
+	position:relative;
+}
+
+#container > .wrap {
+	width:930px;
+}
+
+#container.customPage > .wrap {
+	width:100%;
+}
+	#container.customPage .mainbox {
+		margin:0;
+	}
+
+
+/*  _____________________________________________________________________________
+
+    01 Header
+    _____________________________________________________________________________  */
+
+#header {
+	width:100%;
+	min-height:128px;
+	background-color:#333333;
+	border-bottom: 2px solid #E94709;
+}
+
+#header > .wrap {
+	min-height: 128px;
+	background-color:#333333;
+}
+
+#header .logo {
+	float:left;
+	margin:17px 0 0 5px;
+	text-indent:-9999px;
+}
+
+
+
+	
+
+/*  _____________________________________________________________________________
+
+    02 Navigation
+    _____________________________________________________________________________  */
+
+#header .nav {
+	padding:15px 0 0 185px;
+}
+	#header .nav ul {
+		float:left;
+		padding:0 28px 0 0;
+	}
+		#header .nav li a {
+			line-height:20px;
+			font-size:13px;
+		}
+		#header .nav a:hover {
+			color:#ccc;
+			text-decoration:none;
+		}
+		#header .nav a:active {
+			color:#e94709;
+		}
+		#header .nav .subject {
+			display:block;
+			padding:0 0 3px 0;
+			font-size:14px;
+			font-weight:bold;
+			color:#fff;
+		}
+	
+#admin .nav ul {
+	float:right;
+	padding-top:63px;
+}
+	#admin .nav ul li {
+		display:inline-block;
+	}
+		#admin .nav ul li a {
+			display:block;
+			padding:15px 12px;
+			color:#ebebeb;
+		}
+		#admin .nav ul li.current a {
+			color:#E94709;
+		}
+	
+
+/*  _____________________________________________________________________________
+
+    03 Container
+    _____________________________________________________________________________  */
+
+#container {
+	/* padding-top:130px; */
+	padding-bottom:20px;
+}	
+	#container > .wrap {
+		padding:15px 25px;
+	}
+
+	
+
+/*  _____________________________________________________________________________
+
+    04 Footer
+    _____________________________________________________________________________  */
+
+footer {
+	margin-top:-20px;
+	height:20px;
+	background-color: #333;
+}	
+	
+footer p.copyright {
+	text-align:right;
+	padding:25px 0;
+}

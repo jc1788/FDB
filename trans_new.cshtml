@@ -1,0 +1,304 @@
+﻿@{
+    Layout = "~/_SiteLayout_new.cshtml";
+    //Page.Title = "國道里程座標計算系統";
+
+    Response.Cache.SetCacheability(HttpCacheability.NoCache);
+
+    LoginUtil.RequiredLogin();
+    
+    decimal wgs84x = 121.73506m;
+    decimal wgs84y = 25.12181m;
+    decimal tmd67x = 0m;
+    decimal tmd67y = 0m;
+    
+    string free_id = "N0010";
+    string direction = "U";
+    int mileage = 0;
+    
+    if (IsPost)
+    {
+        AntiForgery.Validate();
+        if (Request.Form["wgs84x"] != null)
+        {
+            wgs84x = Request.Form["wgs84x"].AsDecimal();
+        }
+        if (Request.Form["wgs84y"] != null)
+        {
+            wgs84y = Request.Form["wgs84y"].AsDecimal();
+        }
+        if (Request.Form["tmd67x"] != null)
+        {
+            tmd67x = Request.Form["tmd67x"].AsDecimal();
+        }
+        if (Request.Form["tmd67y"] != null)
+        {
+            tmd67y = Request.Form["tmd67y"].AsDecimal();
+        }
+        if (Request.Form["free_id"] != null)
+        {
+            free_id = Request.Form["free_id"];
+        }
+        if (Request.Form["direction"] != null)
+        {
+            direction = Request.Form["direction"];
+        }
+
+        if (Request.Form["mileage"] != null)
+        {
+            mileage = Request.Form["mileage"].AsInt();
+        }
+    }
+
+    string directionStr = null;
+    switch (direction) {
+        default:
+	    case "U":directionStr="順向";break;
+	    case "D":directionStr="逆向";break;
+    }
+    
+    string freewayStr = null;
+
+    switch (free_id) {
+        default:
+	    case "N0010":freewayStr="國道一號";break;
+	    case "N0020":freewayStr="國道二號";break;
+	    case "N0030":freewayStr="國道三號";break;
+	    case "N0031":freewayStr="國道三甲";break;
+	    case "N0040":freewayStr="國道四號";break;
+	    case "N0050":freewayStr="國道五號";break;
+	    case "N0060":freewayStr="國道六號";break;
+	    case "N0080":freewayStr="國道八號";break;
+	    case "N00100":freewayStr="國道十號";break;
+    }
+
+    bool inRange = false;
+    //MileageCoordinate coordinate = new MileageCoordinate();
+
+    freewayDbDataContext db = new freewayDbDataContext();
+    
+    var max = (from f in db.freeway
+               where f.free_id == free_id && f.direction == direction
+               select f.mileage).Max();
+
+    var min = (from f in db.freeway
+               where f.free_id == free_id && f.direction == direction
+               select f.mileage).Min();
+
+    
+    if (mileage >= min && mileage <= max)
+    {
+        if (IsPost)
+        {
+            inRange = true;
+        }
+
+        var ceiling = (from fw in db.freeway
+                       where (fw.free_id == free_id && fw.direction == direction && fw.mileage >= mileage)
+                       orderby fw.mileage
+                       select new { fw.mileage, fw.TMD67X, fw.TMD67Y, fw.WGS84X, fw.WGS84Y }).First();
+
+        var floor = (from fw in db.freeway
+                     where (fw.free_id == free_id && fw.direction == direction && fw.mileage <= mileage)
+                     orderby fw.mileage descending
+                     select new { fw.mileage, fw.TMD67X, fw.TMD67Y, fw.WGS84X, fw.WGS84Y }).First();
+
+        if (ceiling != null && floor != null)
+        {
+            decimal deltaMileage = ceiling.mileage - floor.mileage;
+            decimal mileageRatio = 0;
+
+            if (deltaMileage != 0)
+            {
+                mileageRatio = (mileage - floor.mileage) / deltaMileage;
+            }
+
+            decimal deltaWGS84X = floor.WGS84X - ceiling.WGS84X;
+            wgs84x = Math.Round(floor.WGS84X + (mileageRatio * deltaWGS84X), 5);
+
+            decimal deltaWGS84Y = floor.WGS84Y - ceiling.WGS84Y;
+            wgs84y = Math.Round(floor.WGS84Y + (mileageRatio * deltaWGS84Y), 5);
+
+
+            decimal deltaTMD67X = floor.TMD67X - ceiling.TMD67X;
+            tmd67x = Math.Round(floor.TMD67X + (mileageRatio * deltaTMD67X), 5);
+
+            decimal deltaTMD67Y = floor.TMD67Y - ceiling.TMD67Y;
+            tmd67y = Math.Round(floor.TMD67Y + (mileageRatio * deltaTMD67Y), 5);
+        }
+    }
+
+    decimal mmileage = 0m;
+    string unit = null;
+    if (mileage > 1000) {
+        mmileage = Math.Round((decimal)mileage / 1000.0m, 2);
+        unit = "K";
+    } else {
+        mmileage = mileage;
+        unit = "m";
+    }
+}
+
+}
+
+<link type="text/css" rel="stylesheet" media="screen" href="~/jquery-lightbox/styles/jquery.lightbox.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="~/jquery-lightbox/styles/style.css" />      
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqbDyzkJIxoRAvez7VwmQMOdcOhgMAPto"></script>
+<script type="text/javascript">
+<!--
+    var geocoder = new google.maps.Geocoder();
+
+    function geocodePosition(pos) {
+        geocoder.geocode({
+            latLng: pos
+        }, function (responses) {
+            if (responses && responses.length > 0) {
+                updateMarkerAddress(responses[0].formatted_address);
+            } else {
+                updateMarkerAddress('Cannot determine address at this location.');
+            }
+        });
+    }
+
+    function updateMarkerStatus(str) {
+        document.getElementById('markerStatus').innerHTML = str;
+    }
+
+    function updateMarkerPosition(latLng) {
+        lat = latLng.lat();
+        lng = latLng.lng();
+        lat = Math.round(lat * 100000) / 100000;
+        lng = Math.round(lng * 100000) / 100000;
+        document.getElementById('info').innerHTML = [
+          '經度' + lat,
+          '緯度' + lng
+        ].join(', ');
+    }
+
+    function updateMarkerAddress(str) {
+        document.getElementById('address').innerHTML = str;
+    }
+
+    function initialize() {
+        var x = '@wgs84x';
+        var y = '@wgs84y';
+        var latLng = new google.maps.LatLng(y, x);
+        var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+            zoom: 16,
+            center: latLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var marker = new google.maps.Marker({
+            position: latLng,
+            title: 'Point A',
+            map: map,
+            draggable: true
+        });
+
+        // Update current position info.
+        updateMarkerPosition(latLng);
+        geocodePosition(latLng);
+
+        // Add dragging event listeners.
+        google.maps.event.addListener(marker, 'dragstart', function () {
+            //    updateMarkerAddress('Dragging...');
+        });
+
+        google.maps.event.addListener(marker, 'drag', function () {
+            //    updateMarkerStatus('Dragging...');
+            updateMarkerPosition(marker.getPosition());
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function () {
+            //    updateMarkerStatus('Drag ended');
+            geocodePosition(marker.getPosition());
+        });
+    }
+
+    // Onload handler to fire off the app.
+    google.maps.event.addDomListener(window, 'load', initialize);
+    // -->
+</script>
+<div id="container">
+    <br />
+    <div id="mileageForm" style="width:990px; text-align:left; margin-left:200px;">
+        
+        <form name="mileageCoordCalc" id="mileageCoordCalc" action="" method="post">
+            <table>
+                <tr>
+                    <td width="400">
+                        @AntiForgery.GetHtml()<br/>
+                        <div id="freewayOptionLabel"  style="font-size:12px">選擇國道：
+                            <select name="free_id" id="free_id">
+                                <option value="N0010" @{if (free_id == "N0010") {<text>selected</text>}}>國道1號</option>
+                                <option value="N0020" @{if (free_id == "N0020") {<text>selected</text>}}>國道2號</option>
+                                <option value="N0030" @{if (free_id == "N0030") {<text>selected</text>}}>國道3號</option>
+                                <option value="N0031" @{if (free_id == "N0031") {<text>selected</text>}}>國道3甲</option>
+                                <option value="N0040" @{if (free_id == "N0040") {<text>selected</text>}}>國道4號</option>
+                                <option value="N0050" @{if (free_id == "N0050") {<text>selected</text>}}>國道5號</option>
+                                <option value="N0060" @{if (free_id == "N0060") {<text>selected</text>}}>國道6號</option>
+                                <option value="N0080" @{if (free_id == "N0080") {<text>selected</text>}}>國道8號</option>
+                                <option value="N0100" @{if (free_id == "N0100") {<text>selected</text>}}>國道10號</option>
+                            </select>
+                        </div>
+                        <br/>
+                        <div id="freewayDirectionLabel" style="font-size:12px">方向：
+                            <select name="direction" id="direction">
+                                <option value="U" @{if (direction == "U") {<text>selected</text>}}>順向</option>
+		                        <option value="D" @{if (direction == "D") {<text>selected</text>}}>逆向</option>
+	                        </select>
+                        </div>
+                        <br/>
+                        <div id="freewayMileageLabel" style="font-size:12px">國道里程（單位：公尺）：
+	                        <input type="text" name="mileage" id="mileage" value="@mileage" />
+                        </div>
+                        <br/>
+                        <div id="submitField">
+	                        <input type="submit" id="submit" name="submit" value="計算"/>
+                           
+                        </div>
+                        <br/>
+                         @{ if (!inRange) {
+                                <div id="outOfRange" style="font-size:12px">輸入的里程超出範圍 @(min) ~ @(max)</div>
+                            }}
+                       
+                            
+                        
+                        <br/>
+                        <div id="tg" style="font-size:12px"> <b>查詢目標：</b></div>
+                        <br/>
+                        <div id="infoPanel" style="font-size:12px">@(freewayStr + directionStr + mmileage + unit)路段</div>
+                        <br/>
+                        <div id="xy" style="font-size:12px"> <b>現在座標：</b></div>
+                        <br/>
+                        <div id="info" style="font-size:12px"></div>
+                        <br/>
+                        <div id="ad" style="font-size:12px"><b>鄰近地址：</b></div>
+                        <br/>
+                        <div id="address" style="font-size:12px"></div>
+
+                    </td>
+                    <td width="400">
+                         <div id="showCoord" style="display: @{if (inRange) {<text>block</text>} else {<text>none</text>}}">
+                             <br/>
+                            <div style="font-size:12px"> <u>計算結果如下：</u></div>
+                             <br/>
+	                        <div id="wgs84xLabel" style="font-size:12px">WGS84經度</div><div id="owx"><input type="text" readonly id="wgs84x" name="wgs84x" value="@wgs84x" /></div>
+                             <br/>
+	                        <div id="wgs84yLabel" style="font-size:12px">WGS84緯度</div><div id="owy"><input type="text" readonly id="wgs84y" name="wgs84y" value="@wgs84y"/></div>
+                             <br/>
+	                        <div id="tmd67xLabel" style="font-size:12px">TMD67X</div><div id="otx"><input type="text" readonly id="tmd67x" name="tmd67x" value="@tmd67x"/></div>
+                             <br/>
+	                        <div id="tmd67yLabel" style="font-size:12px">TMD67Y</div><div id="oty"><input type="text" readonly id="tmd67y" name="tmd67y" value="@tmd67y"/></div>
+                             <br/>
+                            <br />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <br />
+    <div id="mapCanvas" style="width:800px;height:500px; margin-left:200px;"></div>
+
+    </div>
+</div>

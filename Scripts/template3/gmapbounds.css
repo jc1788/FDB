@@ -1,0 +1,85 @@
+		.divlayer {
+		 border: 2px solid #ff0000;
+		 background-color:#ffe4e1;
+		 filter:alpha(opacity=50);
+		 opacity: 0.5;
+		 -moz-opacity:0.5;
+		 height: 150px;
+		 width: 150px;
+		 left: 0px;
+		 top: 0px;
+		 z-index: 10000;
+		 margin: 0px;
+		 padding: 0px;
+		 position: absolute;
+		 line-height:0px;
+		 cursor:move;
+		}
+		.ResBtn {
+		  background-image: url(resize.gif);
+		  background-repeat:no-repeat;
+		  background-position:center;
+		  z-index: 10001;
+		  position:absolute;
+		  overflow:hidden;
+		  width:20px;
+		  height:20px;
+		  margin:0;
+		  padding:0;
+		  cursor:se-resize;
+		}
+		.QryBtn {
+		  background-image: url(profile.gif);
+		  background-repeat:no-repeat;
+		  background-position:center;
+		  position:absolute;
+		  z-index: 10001;
+		  overflow:hidden;
+		  width:63px;
+		  height:21px;
+		  margin:10;
+		  padding:0px;
+		  cursor:help;
+		}
+		.ZoomBtn {
+		  background-image: url(plus.gif);
+		  background-repeat:no-repeat;
+		  background-position:center;
+		  position:absolute;
+		  z-index: 10001;
+		  overflow:hidden;
+		  width:16px;
+		  height:16px;
+		  margin:0;
+		  padding:0px;
+		  cursor:pointer;
+		}
+		.ZoomOutBtn {
+		  background-image: url(minus.gif);
+		  background-repeat:no-repeat;
+		  background-position:center;
+		  position:absolute;
+		  z-index: 10001;
+		  top:0px;
+		  right:0px;
+		  overflow:hidden;
+		  width:16px;
+		  height:16px;
+		  margin:0;
+		  padding:0px;
+		  cursor:pointer;
+		}
+		.CameraBtn {
+		  background-image: url(camera.gif);
+		  background-repeat:no-repeat;
+		  background-position:center;
+		  position:absolute;
+		  z-index: 10001;
+		  bottom:0px;
+		  left:28px;
+		  width:20px;
+		  height:16px;
+		  margin:0px;
+		  padding-bottom:2px;
+		  cursor:help;
+		 }

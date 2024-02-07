@@ -1,0 +1,136 @@
+﻿@{
+    var weburl = "http://freeway.hantw2019.ga/";
+    var ogdata = ViewBag.ogdata;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @if (ogdata != null)
+    {
+        var text = ogdata.portfolio_name + "-交通部高速公路局-國道公共藝術網";
+        <title>@text</title>
+    }
+    else
+    {
+        <title>交通部高速公路局-國道公共藝術網</title>
+    }
+
+    <!-- Favicon Icon -->
+    <link rel="stylesheet" href="~/Content/css/style.min.css">
+
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Request.Url.AbsoluteUri" />
+    <meta property="og:site_name" content="交通部高速公路局-國道公共藝術網" />
+    @if (ogdata != null)
+    {
+        var text = ogdata.portfolio_name + "-交通部高速公路局-國道公共藝術網";
+        <meta property="og:title" content=@text />
+    }
+    else
+    {
+        <meta property="og:title" content="交通部高速公路局-國道公共藝術網" />
+    }
+    <meta property="og:description" content="交通部高速公路局-國道公共藝術網" />
+    @if (ogdata != null)
+    {
+
+        var img = weburl + ogdata.portfolio_Img.Replace("~/", "");
+        <meta property="og:image" content=@img />
+    }
+    else
+    {
+        <meta property="og:image" content="@weburl@Url.Content("Content/images/logo.png")" />
+    }
+
+
+</head>
+<body>
+    <!------------  header  -------------->
+    <header class="header">
+        <div class="view">
+            <div class="logo">
+                <a href='@Url.Action("Index", "Home")'><img src="~/Content/images/logo.png" alt="交通部高速公路局 FREEWAY BUREAU, MOTC"></a>
+            </div>
+            <div class="burger">
+                <div class="burger__inner">
+                    <span class="burger__inner__line"></span>
+                    <span class="burger__inner__line"></span>
+                    <span class="burger__inner__line"></span>
+                </div>
+            </div>
+            <nav class="nav">
+                <div class="close pad-show"><img src="~/Content/images/icon/icon_close.png" alt=""></div>
+                <ul class="nav__wrap">
+                    <li class="nav__item nav__title">@Html.ActionLink("國道公共藝術網", "Index", "home", null, new { @class = "" })</li>
+                    <li class="nav__item nav__border">@Html.ActionLink("緣起", "starter", "home", null, new { @class = "" })</li>
+                    <li class="nav__item nav__border"><a href='@Url.Action("Newslist", "Home")'>最新消息</a></li>
+                    <li class="nav__item nav__border"><a href='@Url.Action("Allworks", "Home")'>公共藝術作品</a></li>
+                    <li class="nav__item nav__border"><a href='@Url.Action("Artists", "Home")'>藝術家</a></li>
+                    @*
+                    <li class="nav__item nav__border">@Html.ActionLink("後台首頁", "Index", "Backhome", new { area = "admin" }, new { @class = "" })</li>
+                    *@
+                </ul>
+                <ul class="nav__wrap nav__social">
+                    <li class="nav__item"><a target="_blank" href="https://www.youtube.com/user/freewaygov/"><span class="icon icon-video icon-scale"></span></a></li>
+                    <li class="nav__item"><a target="_blank" href="https://www.facebook.com/hi.freeway/"><span class="icon icon-facebook icon-scale"></span></a></li>
+                    <li class="nav__item"><a target="_blank" href="https://www.freeway.gov.tw/POM/POMailBoxInfo.aspx"><span class="icon icon-mail icon-scale"></span></a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-K4LKHXW');
+        </script>
+        <!-- End Google Tag Manager -->
+
+    </header>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4LKHXW"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    @RenderBody()
+
+    <script>
+        /*************
+        IE browser
+        **************/
+        function isIE() {
+            ua = navigator.userAgent;
+            /* MSIE used to detect old browsers and Trident used to newer ones*/
+            var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+            return is_ie;
+        }
+        if (isIE()) {
+            alert('你現在所使用爲Internet Explorer瀏覽器，爲提升本官網瀏覽體驗，建議使用Google、Firefox或Edge瀏覽器。');
+        }
+    </script>
+
+    <!------------  FOOTER  -------------->
+    <footer>
+        <nav class="nav">
+            <ul class="nav__wrap">
+                <li class="nav__item">@Html.ActionLink("緣起", "starter", "home", null, new { @class = "" })</li>
+                <li class="nav__item"><a href='@Url.Action("Newslist", "Home")'>最新消息</a></li>
+                <li class="nav__item"><a href='@Url.Action("Allworks", "Home")'>公共藝術作品</a></li>
+                <li class="nav__item"><a href='@Url.Action("Artists", "Home")'>藝術家</a></li>
+            </ul>
+        </nav>
+        <div class="footer-logo"><img src="~/Content/images/logo.png" alt="交通部高速公路局 FREEWAY BUREAU, MOTC"> </div>
+        <p class="pc-show">交通部高速公路局 國道公共藝術網 - 24303 新北市泰山區黎明里半山雅70號 - TEL: +886 (02) 2909-6141 - 交通部高速公路局全球資訊網 版權所有</p>
+        <div class="footer-text pad-flex-show">
+            <p>交通部高速公路局<br>國道公共藝術網</p>
+            <p>24303 新北市泰山區黎明里半山雅70號<br>TEL: +886 (02) 2909-6141<br>交通部高速公路局全球資訊網 版權所有</p>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

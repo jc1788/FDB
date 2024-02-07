@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- close telephone -->
+  <meta name="format-detection" content="telephone=no">
+  <title>國道生態資料庫系統</title>
+  <!-- css -->
+  <link rel="stylesheet" href="./assets/scss/all.css">
+  <!-- ico -->
+  <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon.ico" />
+
+    <!-- Bootstrap Table JQ -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+
+  <!-- tab cdn -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <!-- 主導覽 -->
+  <div class="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container">
+        <a class="navbar-brand" href="index.aspx"><img src="./assets/images/logo.png" width="220" height="47" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto pl-lg-5 pl-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                生態資料庫管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="occurrence_search.aspx">生態調查資料</a></li>
+                <li><a class="dropdown-item" href="roadkill_statistic.aspx">道路致死資料</a></li>
+                <li><a class="dropdown-item" href="plant_search.aspx">現況植栽資料</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                環境工程管理
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                <li><a class="dropdown-item" href="plant_eng.aspx">植栽工程資料</a></li>
+                <li><a class="dropdown-item" href="eco_report.aspx">生態調查報告</a></li>
+                <li><a class="dropdown-item" href="road_status.aspx">路權空間資料</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                相關資料
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                <li><a class="dropdown-item" href="Roadkill_bulletin_add.aspx">受傷動物通報</a></li>
+                <li><a class="dropdown-item" href="Roadkill_bulletin.aspx">通報事件查詢</a></li>
+                <li><a class="dropdown-item" href="trans_new">里程座標轉換</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">文件下載</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                系統管理
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto d-md-flex flex-md-row d-sm-flex flex-sm-row">
+            <li class="px-3 py-2 font-size-sm min-w120px">你好
+              管理者</li>
+
+            </li>
+            <!-- li class="nav-item min-w120px">
+              <button type="button" class="btn btn-secondary rounded-pill" data-bs-toggle="modal"
+                data-bs-target="#searchModal"><i class="bi bi-search pe-2"></i>資料搜尋</button>
+            </li -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+    <!--/.主導覽 -->
+    <!-- 標題+麵包屑 -->
+    <div class="bg-gradient-primary">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <h4 class="py-2 h4 text-white">里程座標轉換</h4>
+                <nav class="breadcrumbNav  d-none d-md-block d-lg-block d-xl-block"
+                    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                    aria-label="breadcrumb">
+                    <ol class="breadcrumb mt12">
+                        <li class="breadcrumb-item"><a href="index.aspx" class="whiteLink">首頁</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">里程座標轉換</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- /.標題+麵包屑 -->
+
+                        @RenderBody()
+
+  <!-- footer -->
+  <footer class="bg-gradient-primary text-white">
+    <div class="container py-6  d-lg-flex justify-content-lg-between">
+      <ul>
+        <li>2021 交通部高速公路局 Copyright © All Rights Reserved.
+        </li>
+        <li>建議瀏覽器：Google Chrome、Edge (Windows)、Safari、Firefox</li>
+      </ul>
+      <ul class="mt-4 mt-lg-0">
+        <li><i class="bi bi-telephone-fill pe-2"></i>總機：(02)2909-6141 </li>
+        <li><i class="bi bi-house-fill pe-2"></i>地址：24303新北市泰山區黎明里半山雅70號</li>
+      </ul>
+    </div>
+  </footer>
+  <!-- /.footer -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
+  @RenderSection("Scripts", required: false)
+</body>
+</html>
